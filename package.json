@@ -1,0 +1,29 @@
+{
+  "name": "kasm-extension",
+  "displayName": "KASM Extension",
+  "description": "Syntax highlighting and tooltips for KASM assembly language.",
+  "version": "0.1.0",
+  "publisher": "your-name",
+  "engines": {
+    "vscode": "^1.75.0"
+  },
+  "categories": ["Programming Languages"],
+  "main": "./src/extension.js",
+  "contributes": {
+    "languages": [
+      {
+        "id": "kasm",
+        "aliases": ["KASM", "kasm"],
+        "extensions": [".kasm"],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "kasm",
+        "scopeName": "source.kasm",
+        "path": "./syntaxes/kasm.tmLanguage.json"
+      }
+    ]
+  }
+}

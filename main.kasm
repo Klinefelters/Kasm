@@ -1,0 +1,10 @@
+R = new register
+D = new device(0)
+
+A = new address
+
+In(D, R)
+Out(D, R)
+Jump(A)
+//
+Halt
