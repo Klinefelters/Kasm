@@ -1,6 +1,6 @@
 import sys
 import logging
-from KasmCompiler.Compiler import Compiler
+from kasm_compiler.Compiler import Compiler
 
 
 def main():

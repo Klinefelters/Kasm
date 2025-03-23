@@ -1,10 +1,8 @@
-R = new register
-D = new device(0)
-
-A = new address
-
-In(D, R)
-Out(D, R)
-Jump(A)
-//
+register r = 0
+device d = 0
+address A = 0
+// In(D, R)
+// Out(D, R)
+// Jump(A)
 Halt
+address A = 0

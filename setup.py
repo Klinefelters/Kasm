@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='KasmCompiler',
+    name='kasm_compiler',
     version='0.1',
     description='A simple compiler for the Kasm assembly language.',
     author='Steven Klinefelter',
@@ -13,7 +13,7 @@ setup(
     ],
     entry_points={
         'console_scripts': [
-            'kasm=KasmCompiler.__main__:main',
+            'kasm=kasm_compiler.__main__:main',
         ],
     },
 )
