@@ -20,4 +20,4 @@ for filename in os.listdir(current_dir):
 
             # Check if the attribute is a class and is a subclass of BaseKeyword
             if isinstance(attr, type) and issubclass(attr, BaseKeyword) and attr is not BaseKeyword:
-                KEYWORDS[attr().name] = attr()
+                KEYWORDS[attr().keyword] = attr

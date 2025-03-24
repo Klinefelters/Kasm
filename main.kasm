@@ -1,8 +1,5 @@
-register r = 0
-device d = 0
-address A = 0
-// In(D, R)
-// Out(D, R)
-// Jump(A)
-Halt
-address A = 0
+register a = 0
+register b = 1
+register c = 2
+register d = 3
+a + b

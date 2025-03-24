@@ -8,20 +8,24 @@ from kasm_compiler.keywords import KEYWORDS
 class Lexer:
     
     def analyse_file(self, file_path):
+        lines_of_tokens = []
         with open(file_path, 'r') as file:
             for line in file.readlines():
                 
                 debug(f"Cleaning line: {line}")
                 line = self.clean_line(line)
                 if not line:
-                    debug("Skipping line")
+                    debug("Skipping line\n")
                     continue
-                debug(f"Cleaned Line: {line}")
+                debug(f"Cleaned Line: {line}\n")
 
                 
                 debug(f"Tokenizing line: {line}")
                 tokens = self.tokenize(line)
-                debug(f"Tokens: {tokens}")
+                debug(f"Tokens: {tokens}\n\n")
+                lines_of_tokens.append(tokens)
+        return lines_of_tokens
+            
 
     def clean_line(self, line):
         line = line.strip()
@@ -35,14 +39,14 @@ class Lexer:
         for token in tmp:
 
             if token in OPERATORS.keys():
-                tokens.append(OPERATORS[token])
+                tokens.append(OPERATORS[token]())
             elif token in IDENTIFIERS.keys():
-                tokens.append(IDENTIFIERS[token])   
+                tokens.append(IDENTIFIERS[token]())   
 
             elif token in KEYWORDS.keys():
-                tokens.append(KEYWORDS[token])
+                tokens.append(KEYWORDS[token]())
 
             else:
-                tokens.append("literal")
+                tokens.append(token)
 
         return tokens

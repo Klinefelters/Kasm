@@ -2,5 +2,7 @@ from attr import define
 
 @define
 class BaseKeyword:
-    name: str = None
-    operands: list = []
+    keyword: str = None
+
+    def parse(self, **kwargs) -> str:
+        raise NotImplementedError("parse method not implemented")

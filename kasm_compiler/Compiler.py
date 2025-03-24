@@ -9,12 +9,15 @@ class Compiler:
     lexer: Lexer = Lexer()
     parser: Parser = Parser()
     assembler: Assembler = Assembler()
+    variables: dict = {}
 
     def compile_kasm(self, file_path):
-        lines = self.lexer.analyse_file(file_path)
-        
 
-        
+        tokens = self.lexer.analyse_file(file_path)
+
+        parsed_lines, self.variables = self.parser.parse_lines(tokens, self.variables)
+        print(f"Parsed Lines: {parsed_lines}")
+        print(f"Variables: {self.variables}")
 
         compiled_code = []
         

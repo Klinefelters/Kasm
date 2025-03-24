@@ -20,4 +20,4 @@ for filename in os.listdir(current_dir):
 
             # Check if the attribute is a class and is a subclass of BaseIdentifier
             if isinstance(attr, type) and issubclass(attr, BaseIdentifier) and attr is not BaseIdentifier:
-                IDENTIFIERS[attr().name] = attr()
+                IDENTIFIERS[attr().identifier] = attr

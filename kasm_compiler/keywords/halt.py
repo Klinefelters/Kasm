@@ -3,5 +3,7 @@ from kasm_compiler.keywords.base_keyword import BaseKeyword
 
 @define
 class Halt(BaseKeyword):
-    name: str = 'Halt'
-    operands: list = []
+    keyword: str = 'Halt'
+    
+    def parse(self, **kwargs):
+        return '1111' + '1111' + '1111' + '1111' + '1111' + '1111' + '1111' + '1111'

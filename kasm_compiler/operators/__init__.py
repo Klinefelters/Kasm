@@ -20,4 +20,4 @@ for filename in os.listdir(current_dir):
 
             # Check if the attribute is a class and is a subclass of BaseOperator
             if isinstance(attr, type) and issubclass(attr, BaseOperator) and attr is not BaseOperator:
-                OPERATORS[attr().operator] = attr()
+                OPERATORS[attr().operator] = attr
