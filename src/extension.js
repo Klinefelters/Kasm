@@ -7,22 +7,34 @@ function activate(context) {
             const word = document.getText(range);
 
             const tooltips = {
-                // Declarables
-                "register": "Declaration: `name = new register`\nDefines a new 5-bit register. Maximum of 32 registers allowed.",
-                "address": "Declaration: `name = new address`\nDefines a new 24-bit memory address. Maximum of 2^24 addresses allowed.",
-                "device": "Declaration: `name = new device(index)`\nDefines a new device with a 5-bit index. Maximum index value is 31.",
-                "int": "Declaration: `name = new int(value)`\nDefines a new integer value. Maximum value is 2^24 - 1.",
-                "char": "Declaration: `name = new char('character')`\nDefines a new character value. Converts the character to its ASCII representation.",
+                // Math Operations
+                "ADD": "Math Operation: `ADD R1, R2, R3`\nAdds the values in R2 and R3 and stores the result in R1.",
+                "SUB": "Math Operation: `SUB R1, R2, R3`\nSubtracts the value in R3 from R2 and stores the result in R1.",
+                "MUL": "Math Operation: `MUL R1, R2, R3`\nMultiplies the values in R2 and R3 and stores the result in R1.",
+                "DIV": "Math Operation: `DIV R1, R2, R3`\nDivides the value in R2 by R3 and stores the result in R1.",
+                "REM": "Math Operation: `REM R1, R2, R3`\nCalculates the remainder of R2 divided by R3 and stores it in R1.",
+                "SLL": "Math Operation: `SLL R1, R2, R3`\nPerforms a logical left shift on R2 by the value in R3 and stores the result in R1.",
+                "SLR": "Math Operation: `SLR R1, R2, R3`\nPerforms a logical right shift on R2 by the value in R3 and stores the result in R1.",
+                "SAR": "Math Operation: `SAR R1, R2, R3`\nPerforms an arithmetic right shift on R2 by the value in R3 and stores the result in R1.",
+                "AND": "Math Operation: `AND R1, R2, R3`\nPerforms a bitwise AND on R2 and R3 and stores the result in R1.",
+                "NAND": "Math Operation: `NAND R1, R2, R3`\nPerforms a bitwise NAND on R2 and R3 and stores the result in R1.",
+                "ORR": "Math Operation: `ORR R1, R2, R3`\nPerforms a bitwise OR on R2 and R3 and stores the result in R1.",
+                "NOR": "Math Operation: `NOR R1, R2, R3`\nPerforms a bitwise NOR on R2 and R3 and stores the result in R1.",
+                "XOR": "Math Operation: `XOR R1, R2, R3`\nPerforms a bitwise XOR on R2 and R3 and stores the result in R1.",
+                "XNOR": "Math Operation: `XNOR R1, R2, R3`\nPerforms a bitwise XNOR on R2 and R3 and stores the result in R1.",
+                "NMOV": "Math Operation: `NMOV R1, R2, R3`\nNegates the value in R2 and stores it in R1.",
+                "MOV": "Math Operation: `MOV R1, R2`\nCopies the value in R2 to R1.",
 
                 // Instructions
-                "In": "Instruction: `In(device, register)`\nReads input from the specified device into the given register.",
-                "Out": "Instruction: `Out(device, register)`\nWrites the value of the given register to the specified device.",
-                "Jump": "Instruction: `Jump(address)`\nJumps to the specified memory address.",
-                "Halt": "Instruction: `Halt`\nHalts the program execution.",
-                "NoOp": "Instruction: `NoOp`\nPerforms no operation. Used as a placeholder.",
-                "Load": "Instruction: `Load(register, address)`\nLoads the value from the specified memory address into the given register.",
-                "LoadL": "Instruction: `LoadL(register, value)`\nLoads a literal value into the specified register.",
-                "Store": "Instruction: `Store(register, address)`\nStores the value of the specified register into the given memory address."
+                "NOOP": "Instruction: `NOOP`\nPerforms no operation. Used as a placeholder.",
+                "LOAD": "Instruction: `LOAD R1, R2`\nLoads the value from the memory address in R2 into R1.",
+                "LOADI": "Instruction: `LOADI mode, imm, R1`\nLoads an immediate value into R1 based on the specified mode.",
+                "STORE": "Instruction: `STORE R1, R2`\nStores the value in R1 into the memory address in R2.",
+                "JMPIF": "Instruction: `JMPIF condition, R1`\nJumps to the address in R1 if the specified condition is met.",
+                "RIO": "Instruction: `RIO R1, R2`\nReads input from the device in R2 into R1.",
+                "WIO": "Instruction: `WIO R1, R2`\nWrites the value in R1 to the device in R2.",
+                "WIOI": "Instruction: `WIOI mode, imm, R1`\nWrites an immediate value to the device in R1 based on the specified mode.",
+                "HALT": "Instruction: `HALT`\nHalts the program execution."
             };
 
             if (tooltips[word]) {

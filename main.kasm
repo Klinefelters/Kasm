@@ -1,13 +1,5 @@
-register a = 0
-register b = 1
-register c = 2
-register d = 3
-
-address a0 = 0
-
-device d0 = 0
-a + b + c - b
-
-Halt
-In
-Out
+RIO R7 D0
+WIO R7 D0
+JMPIF JMP R1
+NOOP
+HALT

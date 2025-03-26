@@ -1,5 +1,5 @@
 - 16 bit instructions
-- R = one of the 16 registers
+- R = one of the 8 registers
 - Imm = 8 bit immediate value
 - [] indicates that the value inside, or register's value, is being used as an address
 
@@ -60,9 +60,9 @@ Read the value from IO device [Rb] and store it in Rb
 ### WIO [110] 01 000 Ra [Rb]
 Write the value stored in Ra to IO device [Rb]
 
-### WIOI [110] XX Imm [Rb]
-- 10 Write imm to IO device [Rb] as the low byte with high byte set to 0's
-- 11 Write imm to IO device [Rb] as the high byte with low byte set to 0's
+### WIOI [110] 1X Imm [Rb]
+- 0 Write imm to IO device [Rb] as the low byte with high byte set to 0's
+- 1 Write imm to IO device [Rb] as the high byte with low byte set to 0's
 
 ### HALT [111]
 Stops the CPU clock
