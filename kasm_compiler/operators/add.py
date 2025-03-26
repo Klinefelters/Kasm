@@ -20,15 +20,15 @@ class Add(BaseOperator):
             rd = rb
         
         if type(ra) is not Register: 
-            raise TypeError("ra must be a register")
+            raise TypeError("ra must be a register but ra = " + ra)
 
         if type(rb) is not Register: 
-            raise TypeError("ra must be a register")
+            raise TypeError("rb must be a register but ra = " + rb)
 
         if type(rd) is not Register: 
-            raise TypeError("ra must be a register")
+            raise TypeError("rd must be a register but ra = " + rd)
 
-        return '0001' + '0101' + '0000' + '0000' + '0' + ra.parse() + rb.parse() + rd.parse()
+        return '0001' + '0000' + '0000' + '0000' + '0' + ra.parse() + rb.parse() + rd.parse()
         
         
         

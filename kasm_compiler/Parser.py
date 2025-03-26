@@ -54,11 +54,13 @@ class Parser:
                 right = variables[right[0]]
             
             print(f"Parsed: {operator.parse(ra=left, rb=right)}\n")
-            return(f"{left} {operator} {right}")
+            return(right)
         elif right[1].operator in OPERATORS.keys():
             new_right = right[2:]
             new_left = right[0]
-            return(f'{left} {operator} {self.process_arithmetic(new_left, new_right, right[1], variables)}')
+            right = self.process_arithmetic(new_left, new_right, right[1], variables)
+            print(f"Parsed: {operator.parse(ra=left, rb=right)}\n")
+            return(right)
         else:
             error("Invalid arithmetic operation")
             raise Exception("Invalid arithmetic operation")

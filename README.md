@@ -1,65 +1,60 @@
-# kasm README
+16 bit instructions
 
-Tmp
+R = one of the 16 registers
+Imm = 8 bit immediate value
+[] indicates that the value inside, or register's value, is being used as an address
 
-## Features
+MATH [001] XXXX Rd Ra Rb
+Perform Ra OP Rb store in Rd
+OPS
+- ADD   [0000];
+- SUB   [0001];
+- MUL   [0010];
+- DIV   [0011]; 
+- REM   [0100]; 
+- SLL   [0101];
+- SLR   [0110];
+- SAR   [0111];
+- AND   [1000];
+- NAND  [1001];
+- ORR   [1010];
+- NOR   [1011];
+- XOR   [1100];
+- XNOR  [1101];
+- NMOV  [1110];
+- MOV   [1111];
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
 
-For example if there is an image subfolder under your extension project workspace:
+LOAD [010] 0000 Rd [Ra] 000
+Load value stored in address [Ra] to Rd
 
-\!\[feature X\]\(images/feature-x.png\)
+LOADI [011] 0 X Imm Rb
+	- 0 load imm into Rb as the low byte with high byte set to 0's
+- 1 load imm into Rb as the high byte with the low byte set to 0's
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+STORE [100] 0000 000 [Ra] Rb
+Store value Rb into address [Ra]
 
-## Requirements
+JMPIF [101] XXX 0 000 000 Rb
+Uses status of the last MATH command to branch. These comparisons are made on Ra and Rb of the previous MATH command, not on the resulting Rd.
+- GRT   [000]; jump if a was greater than b
+- EQL   [001]; jump if a was equal to b
+- LST   [010]; jump if a was less than b
+- UGT   [011]; jump if unsigned a was greater than unsigned b
+- UEQ   [100]; jump if unsigned a was equal to unsigned b
+- ULT   [101]; jump if unsigned a was less than unsigned b
+- NOOP  [110]; never jump
+- JMP   [111]; always jump
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+RIO [110] 00 Rd 000 [Rb]
+Read the value from IO device [Rb] and store it in Rb
 
-## Extension Settings
+WIO [110] 01 000 Ra [Rb]
+Write the value stored in Ra to IO device [Rb]
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+WIOI [110] XX Imm [Rb]
+- 10 Write imm to IO device [Rb] as the low byte with high byte set to 0's
+- 11 Write imm to IO device [Rb] as the high byte with low byte set to 0's
 
-For example:
-
-This extension contributes the following settings:
-
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
-
-## Known Issues
-
-Calling out known issues can help limit users opening duplicate issues against your extension.
-
-## Release Notes
-
-Users appreciate release notes as you update your extension.
-
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
----
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+HALT [111]
+Stops the CPU clock

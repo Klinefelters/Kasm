@@ -2,4 +2,12 @@ register a = 0
 register b = 1
 register c = 2
 register d = 3
-a + b
+
+address a0 = 0
+
+device d0 = 0
+a + b + c - b
+
+Halt
+In
+Out
