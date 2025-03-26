@@ -1,5 +1,8 @@
 - 16 bit instructions
 - R = one of the 8 registers
+- D = one of the 8 possible device locations. 
+- - 8 input devices and 8 output devices.
+- - Both input device X and output device X share a D number even though their seperate devices 
 - Imm = 8 bit immediate value
 - [] indicates that the value inside, or register's value, is being used as an address
 

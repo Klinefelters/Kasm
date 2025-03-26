@@ -9,10 +9,6 @@ def main():
         assembly_code = f.readlines()
     binary_instructions = compile_code(assembly_code)
 
-    with open(file_path.replace(".kasm", ".bin"), "w") as f:
-        for instruction in binary_instructions:
-            f.write(instruction + "\n")
-
     with open(file_path.replace(".kasm", ".hex"), "w") as f:
         for instruction in binary_instructions:
             nibbles = [instruction[i:i + 4] for i in range(0, len(instruction), 4)]
