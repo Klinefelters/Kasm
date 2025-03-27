@@ -16,8 +16,14 @@ class Compiler:
         compiled_code, self.variables = self.parser.parse_lines(tokens, self.variables)
         
         
-        output_path = file_path.replace(".kasm", ".bin")
+        bin_path = file_path.replace(".kasm", ".bin")
+        hex_path = file_path.replace(".kasm", ".hex")
 
-        with open(output_path, 'w') as output_file:
-            output_file.write("\n".join(compiled_code))
-        logging.info(f"Compiled to {output_path}")
+        with open(file_path.replace(".kasm", ".bin"), 'w') as bin_file:
+           bin_file.write("\n".join(compiled_code))
+        logging.info(f"Compiled binary to {bin_path}")
+
+        with open(file_path.replace(".kasm", ".hex"), 'w') as hex_file:
+           
+           hex_file.write("\n".join([hex(int(instruction, 2))[2:].zfill(4) for instruction in compiled_code]))
+        logging.info(f"Compiled binary to {hex_path}")

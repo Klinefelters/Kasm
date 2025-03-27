@@ -3,6 +3,10 @@ from kasm_compiler.keywords.base_keyword import BaseKeyword
 
 @define
 class Halt(BaseKeyword):
+    """
+    HALT
+    stops the cpu
+    """
     keyword: str = 'HALT'
     
     def parse(self, args):

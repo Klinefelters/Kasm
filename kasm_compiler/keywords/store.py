@@ -5,8 +5,8 @@ from kasm_compiler.identifiers.register import Register
 @define
 class Load(BaseKeyword):
     """
-    LOAD Rd [Ra]
-    load value from memory at address [Ra] into register Rd
+    STORE [Ra] Rb
+    store value at register Rb into memory at address [Ra]
     """
     keyword: str = 'LOAD'
     
@@ -17,4 +17,4 @@ class Load(BaseKeyword):
         else:
             raise Exception("LOAD requires two registers as arguments")
 
-        return '010' + '0000' + rd.parse() + ra.parse() + '000'
+        return '010' + '0000' + '000' + ra.parse() + rd.parse()

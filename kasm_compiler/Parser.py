@@ -22,7 +22,6 @@ class Parser:
 
 
     def parse_line(self, line:list, variables:dict):
-        debug(f"Parsing line: {line}")
         parsed_lines = []
 
         
@@ -36,10 +35,13 @@ class Parser:
             right = line[2:]
             debug(self.process_arithmetic(left, right, line[1], variables))
 
+        debug(f"Parsing line: {line}")
+
         if issubclass(type(line[0]), BaseIdentifier):
             debug(f"Found Identifier: {line[0].identifier}")
 
             variables[line[1]] = line[0].enstantiate(line[1], line[2])
+            debug(f"Added variable: {line[1]} = {variables[line[1]].value}")
             return parsed_lines, variables
         
 
@@ -50,6 +52,7 @@ class Parser:
             elif not issubclass(type(token), Token):
                 index = line.index(token)
                 line[index]= Immediate().enstantiate(None, token)
+        debug(f"Parsing line: {line}")
         
         
         if issubclass(type(line[0]), BaseKeyword): 
