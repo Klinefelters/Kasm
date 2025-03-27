@@ -30,9 +30,10 @@ class Lexer:
         return line
     
     def tokenize(self, line):
-        tmp = line.split()
+        tmp = line.split(',')
         tokens = []
         for token in tmp:
+            token = token.strip()
 
             if token in OPERATORS.keys():
                 tokens.append(OPERATORS[token]())

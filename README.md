@@ -57,15 +57,15 @@ Uses status of the last MATH command to branch. These comparisons are made on Ra
 - NOOP  [110]; never jump
 - JMP   [111]; always jump
 
-### RIO [110] 00 Rd 000 [Rb]
+### RIO [110] 00 Rd 000 Da
 Read the value from IO device [Rb] and store it in Rb
 
-### WIO [110] 01 000 Ra [Rb]
+### WIO [110] 01 000 Ra Da
 Write the value stored in Ra to IO device [Rb]
 
-### WIOI [110] 1X Imm [Rb]
-- 0 Write imm to IO device [Rb] as the low byte with high byte set to 0's
-- 1 Write imm to IO device [Rb] as the high byte with low byte set to 0's
+### WIOI [110] 1X Imm Da
+- 0 Write imm to IO device Da as the low byte with high byte set to 0's
+- 1 Write imm to IO device Da as the high byte with low byte set to 0's
 
 ### HALT [111]
 Stops the CPU clock
