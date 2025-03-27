@@ -1,0 +1,1 @@
+from kasm_compiler.keywords.base_keyword import BaseKeyword

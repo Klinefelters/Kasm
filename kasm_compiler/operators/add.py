@@ -28,7 +28,7 @@ class Add(BaseOperator):
         if type(rd) is not Register: 
             raise TypeError("rd must be a register but ra = " + rd)
 
-        return '0001' + '0000' + '0000' + '0000' + '0' + ra.parse() + rb.parse() + rd.parse()
+        return '001' + '0090' + ra.parse() + rb.parse() + rd.parse()
         
         
         

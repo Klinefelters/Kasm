@@ -29,7 +29,10 @@ class LoadIH(BaseKeyword):
     keyword: str = 'LOADIH'
     
     def parse(self, args):
-        if type(args[0]) is Immediate and type(args[1]) is Register:
+        if type(args[0]) is not Immediate and type(args[1]) is Register:
+            imm = Immediate().enstantiate(name=None, value=args[0])
+            rd = args[1]
+        elif type(args[0]) is Immediate and type(args[1]) is Register:
             imm = args[0]
             rd = args[1]
         else:
@@ -46,7 +49,10 @@ class LoadIL(BaseKeyword):
     keyword: str = 'LOADIL'
     
     def parse(self, args):
-        if type(args[0]) is Immediate and type(args[1]) is Register:
+        if type(args[0]) is not Immediate and type(args[1]) is Register:
+            imm = Immediate().enstantiate(name=None, value=args[0])
+            rd = args[1]
+        elif type(args[0]) is Immediate and type(args[1]) is Register:
             imm = args[0]
             rd = args[1]
         else:
