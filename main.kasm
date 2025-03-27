@@ -1,5 +1,4 @@
-RIO R7 D0
-WIO R7 D0
-JMPIF JMP R1
-NOOP
-HALT
+register r 0
+register r1 1
+
+LOADIL c r1

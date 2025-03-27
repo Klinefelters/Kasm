@@ -1,7 +1,8 @@
 from attr import define
+from kasm_compiler.token import Token
 
 @define
-class BaseOperator:
+class BaseOperator(Token):
     name: str = None
     operator: str = None
 

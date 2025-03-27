@@ -1,10 +1,12 @@
 from attr import define
 from kasm_compiler.identifiers.base_identifier import BaseIdentifier
+from kasm_compiler.identifiers.immediate import Immediate
 from kasm_compiler.identifiers import IDENTIFIERS
 from kasm_compiler.keywords.base_keyword import BaseKeyword
 from kasm_compiler.keywords import KEYWORDS
 from kasm_compiler.operators.base_operator import BaseOperator
 from kasm_compiler.operators import OPERATORS
+from kasm_compiler.token import Token
 
 from logging import debug, error
 
@@ -23,29 +25,42 @@ class Parser:
         debug(f"Parsing line: {line}")
         parsed_lines = []
 
+        
+
         if issubclass(type(line[0]), BaseOperator):
             error("Lines cannot start with an operator")
             raise Exception("Lines cannot start with an operator")
-
-        elif issubclass(type(line[0]), BaseIdentifier):
-            debug(f"Found Identifier: {line[0].identifier}")
-            line[0].name = line[1]
-            line[0].value = line[3]
-            variables[line[0].name] = line[0]
         
-        elif issubclass(type(line[0]), BaseKeyword):
-            parsed_lines.append(line[0].parse(variables=variables, remaining_tokens=line[1:]))
-        
-        elif line[0] in variables.keys():
+        if type(line[0]) is str and line[0] in variables.keys():
             left = line[0]
             right = line[2:]
-            print(self.process_arithmetic(left, right, line[1], variables))
+            debug(self.process_arithmetic(left, right, line[1], variables))
+
+        if issubclass(type(line[0]), BaseIdentifier):
+            debug(f"Found Identifier: {line[0].identifier}")
+
+            variables[line[1]] = line[0].enstantiate(line[1], line[2])
+            return parsed_lines, variables
+        
+
+        for token in line:
+            if type(token) is str and token in variables.keys():
+                line[line.index(token)] = variables[token]
             
+            elif not issubclass(type(token), Token):
+                index = line.index(token)
+                line[index]= Immediate().enstantiate(None, token)
+        
+        
+        if issubclass(type(line[0]), BaseKeyword): 
+            debug(f"Found Keyword: {line[0].keyword}")
+            print(line[1:])
+            parsed_lines.append(line[0].parse(line[1:]))
         
         return parsed_lines, variables
     
     def process_arithmetic(self, left, right:list, operator, variables:dict):
-        print(f"Processing: {left} {operator} {right}\n")
+        debug(f"Processing: {left} {operator} {right}\n")
         if left[0] in variables.keys():
             left = variables[left[0]]
 
@@ -53,13 +68,13 @@ class Parser:
             if right[0] in variables.keys():
                 right = variables[right[0]]
             
-            print(f"Parsed: {operator.parse(ra=left, rb=right)}\n")
+            debug(f"Parsed: {operator.parse(ra=left, rb=right)}\n")
             return(right)
         elif right[1].operator in OPERATORS.keys():
             new_right = right[2:]
             new_left = right[0]
             right = self.process_arithmetic(new_left, new_right, right[1], variables)
-            print(f"Parsed: {operator.parse(ra=left, rb=right)}\n")
+            debug(f"Parsed: {operator.parse(ra=left, rb=right)}\n")
             return(right)
         else:
             error("Invalid arithmetic operation")
