@@ -6,7 +6,9 @@ class Immediate(BaseIdentifier):
     identifier: str = 'immediate'
 
     def enstantiate(self, name, value):
-        if type(value) is str and len(value) == 3:
+        try:
+            value = int(value)
+        except ValueError:
             value = ord(value.strip("'").strip('"'))
         value = int(value)
         if value < 0 or value > 255:

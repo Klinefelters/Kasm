@@ -50,9 +50,7 @@ class WIOIL(BaseKeyword):
     keyword: str = 'WIOIL'
     
     def parse(self, args):
-        print(args)
         if type(args[0]) is not Immediate and type(args[1]) is Device:
-            print(args[0])
             imm = Immediate().enstantiate(name=None, value=args[0])
             rd = args[1]
         elif type(args[0]) is Immediate and type(args[1]) is Device:
