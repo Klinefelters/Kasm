@@ -1,13 +1,10 @@
-register, r0, 0
-register, r1, 1
-register, r2, 2
-register, r3, 3
+register, inst, 0
+register, lowhalf, 1
+register, highhalf, 2
 
-LOADIL, 64, r1
-LOADIH, 210, r2
+LOADIL, 64, lowhalf
+LOADIH, 210, highhalf
 
-ADD, r0, r1, r2
+ADD, inst, lowhalf, highhalf
 
-STORE, r3, r0
-
-FETCHRAM, r3
+FETCHREG, inst

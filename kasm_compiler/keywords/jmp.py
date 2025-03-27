@@ -75,11 +75,11 @@ class JMPULT(JMP):
     sel: str = '101'
 
 @define
-class FETCHRAM(JMP):
+class FETCHREG(JMP):
     """
-    FETCHRAM [Rb]
-    fetch the value from the memory address in register [Rb] and execute it as the next instruction
-    this takes 3 clock ticks in total. 2 to execute the fetch, and 1 to execute the instruction
+    FETCHREG Rb
+    fetch the value from Rb and execute it as the next instruction
+    this takes 2 clock ticks in total. 1 to execute the fetch, and 1 to execute the instruction
     """
-    keyword: str = 'FETCHRAM'
+    keyword: str = 'FETCHREG'
     sel: str = '110'
