@@ -1,2 +1,2 @@
-device, d0, 0
-PRINTF, 'Hello World', d0
+device, stdout, 0
+PRINTF, 'Hello World', stdout
