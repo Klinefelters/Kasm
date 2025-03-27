@@ -54,7 +54,6 @@ class Parser:
         
         if issubclass(type(line[0]), BaseKeyword): 
             debug(f"Found Keyword: {line[0].keyword}")
-            print(line[1:])
             parsed_lines.append(line[0].parse(line[1:]))
         
         return parsed_lines, variables

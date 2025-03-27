@@ -1,7 +1,10 @@
 import sys
-import logging
+from coloredlogs import install
 from kasm_compiler.Compiler import Compiler
 from kasm_compiler.tmp import compile_code
+
+
+
 # def main():
 
 #     file_path = sys.argv[1]
@@ -17,31 +20,25 @@ from kasm_compiler.tmp import compile_code
 
 def main():
 
-    if len(sys.argv) < 2:
+    if len(sys.argv) < 2 or len(sys.argv) > 4 or sys.argv[1] == "-h" or ".kasm" not in sys.argv[1]: 
         print("Usage: kasm <file.kasm> -l <log_level>")
         sys.exit(1)
 
     if "-l" in sys.argv:
         log_level_str = sys.argv[sys.argv.index("-l") + 1]
-        print(f"Setting log level to {log_level_str.upper()}")
         if log_level_str.upper() == "DEBUG":
-            log_level = logging.DEBUG
+            install(level='DEBUG')
         elif log_level_str.upper() == "INFO":
-            log_level = logging.INFO
+            install(level='INFO')
         elif log_level_str.upper() == "WARNING":
-            log_level = logging.WARNING
+            install(level='WARNING')
         elif log_level_str.upper() == "ERROR":
-            log_level = logging.ERROR
+            install(level='ERROR')
         elif log_level_str.upper() == "CRITICAL":
-            log_level = logging.CRITICAL
+            install(level='CRITICAL')
     else:
-        log_level = logging.INFO
-
-    logging.basicConfig(
-        level=log_level,
-        format="%(asctime)s | %(name)s | %(levelname)s | %(message)s",
-    )
-
+        install(level='INFO')
+        
     file_path = sys.argv[1]
     compiler = Compiler()
     compiler.compile_kasm(file_path)

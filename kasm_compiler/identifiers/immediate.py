@@ -6,9 +6,7 @@ class Immediate(BaseIdentifier):
     identifier: str = 'immediate'
 
     def enstantiate(self, name, value):
-        print(f'Immediate value: {value}')
         if type(value) is str and len(value) == 1:
-            print(f'Immediate value is a character: {value}')
             value = ord(value)
         value = int(value)
         if value < 0 or value > 255:

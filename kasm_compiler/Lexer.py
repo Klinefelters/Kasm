@@ -12,17 +12,13 @@ class Lexer:
         with open(file_path, 'r') as file:
             for line in file.readlines():
                 
-                debug(f"Cleaning line: {line}")
                 line = self.clean_line(line)
                 if not line:
-                    debug("Skipping line\n")
                     continue
-                debug(f"Cleaned Line: {line}\n")
-
                 
                 debug(f"Tokenizing line: {line}")
                 tokens = self.tokenize(line)
-                debug(f"Tokens: {tokens}\n\n")
+                debug(f"Tokens: {tokens}\n")
                 lines_of_tokens.append(tokens)
         return lines_of_tokens
             
@@ -41,11 +37,9 @@ class Lexer:
             if token in OPERATORS.keys():
                 tokens.append(OPERATORS[token]())
             elif token in IDENTIFIERS.keys():
-                tokens.append(IDENTIFIERS[token]())   
-
+                tokens.append(IDENTIFIERS[token]())
             elif token in KEYWORDS.keys():
                 tokens.append(KEYWORDS[token]())
-
             else:
                 tokens.append(token)
 
