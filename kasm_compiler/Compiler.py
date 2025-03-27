@@ -33,4 +33,4 @@ class Compiler:
 
       with open(file_path.replace(".kasm", ".hex"), 'w') as hex_file:
          hex_file.write("\n".join([hex(int(instruction, 2))[2:].zfill(4) for instruction in final_code]))
-      logging.info(f"Compiled binary to {hex_path}")
+      logging.info(f"Compiled hexcode to {hex_path}")
