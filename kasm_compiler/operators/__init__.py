@@ -23,6 +23,6 @@ for filename in os.listdir(current_dir):
 
             # Check if the attribute is a class and is a subclass of BaseOperator
             if isinstance(attr, type) and issubclass(attr, BaseOperator) and attr is not BaseOperator:
-                OPERATORS[attr().operator] = attr
+                OPERATORS[attr().name] = attr
                 globals()[attr_name] = attr  # Add the class to the global namespace
                 __all__.append(attr_name)  # Add the class name to __all__

@@ -4,31 +4,19 @@ from kasm_compiler.identifiers.register import Register
 
 @define
 class Add(BaseOperator):
-    name: str = 'Add'
+    name: str = 'ADD'
     operator: str = '+'
 
-    def parse(self, **kwargs) -> str:
-        if 'ra' in kwargs.keys() and 'rb' in kwargs.keys():
-            ra = kwargs['ra']
-            rb = kwargs['rb']
-        else:
-            raise Exception("Missing required arguments")
+    def parse(self, args) -> str:
+        if len(args) != 3:
+            raise ValueError("Add operator must have 3 arguments but has " + str(len(args)))
         
-        if 'rd' in kwargs.keys():
-            rd = kwargs['rd']
-        else:
-            rd = rb
-        
-        if type(ra) is not Register: 
-            raise TypeError("ra must be a register but ra = " + ra)
+        for arg in args:
+            if not isinstance(arg, Register):
+                raise ValueError("Add operator arguments must be registers")
+        [ra, rb, rd] = args
 
-        if type(rb) is not Register: 
-            raise TypeError("rb must be a register but ra = " + rb)
-
-        if type(rd) is not Register: 
-            raise TypeError("rd must be a register but ra = " + rd)
-
-        return '001' + '0090' + ra.parse() + rb.parse() + rd.parse()
+        return '001' + '0000' + ra.parse() + rb.parse() + rd.parse()
         
         
         
