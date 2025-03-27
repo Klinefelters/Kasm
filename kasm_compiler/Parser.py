@@ -1,14 +1,10 @@
 from attr import define
-from kasm_compiler.identifiers.base_identifier import BaseIdentifier
-from kasm_compiler.identifiers.immediate import Immediate
-from kasm_compiler.identifiers import IDENTIFIERS
-from kasm_compiler.keywords.base_keyword import BaseKeyword
-from kasm_compiler.keywords import KEYWORDS
-from kasm_compiler.operators.base_operator import BaseOperator
-from kasm_compiler.operators import OPERATORS
-from kasm_compiler.token import Token
-
 from logging import debug, error
+
+from kasm_compiler.identifiers import IDENTIFIERS, BaseIdentifier, Immediate
+from kasm_compiler.keywords import KEYWORDS, BaseKeyword
+from kasm_compiler.operators import OPERATORS, BaseOperator
+from kasm_compiler.token import Token
 
 
 @define

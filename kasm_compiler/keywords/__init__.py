@@ -5,6 +5,9 @@ from kasm_compiler.keywords.base_keyword import BaseKeyword
 # Dictionary to store all operator classes
 KEYWORDS = {}
 
+# List to store all public classes for __all__
+__all__ = []
+
 # Get the directory of the current file (KEYWORDS folder)
 current_dir = os.path.dirname(__file__)
 
@@ -21,3 +24,5 @@ for filename in os.listdir(current_dir):
             # Check if the attribute is a class and is a subclass of BaseKeyword
             if isinstance(attr, type) and issubclass(attr, BaseKeyword) and attr is not BaseKeyword:
                 KEYWORDS[attr().keyword] = attr
+                globals()[attr_name] = attr  # Add the class to the global namespace
+                __all__.append(attr_name)  # Add the class name to __all__
