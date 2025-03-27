@@ -10,7 +10,7 @@ class Printf(BaseKeyword):
     PRINTF Str Da
     prints the value at device Da
     """
-    keyword: str = 'PRINTF'
+    keyword: str = 'printf'
     
     def parse(self, args):
         wioil = WIOIL()

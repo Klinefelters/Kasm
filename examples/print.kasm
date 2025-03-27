@@ -1,2 +1,2 @@
 device, stdout, 0
-PRINTF, 'Hello World', stdout
+printf, 'Hello World', stdout
