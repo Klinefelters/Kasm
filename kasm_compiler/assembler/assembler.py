@@ -32,7 +32,8 @@ class Assembler:
     data: dict = {}
     vars: dict = {}
     labels: dict = {}
-    binary_instructions: list = ['0000000000000000','0000000000000000','0000000000000000','0000000000000000']
+    data_pointer: int = 0
+    binary_instructions: list = []
 
     def assemble_code(self, instruction):
         """Assemble a single instruction into a 16-bit binary string."""
@@ -173,10 +174,34 @@ class Assembler:
             if line.startswith("section."):
                 current_section = line[8:]
                 if current_section == "instructions":
+                    self.binary_instructions.append("0000000000000000")
+                    self.binary_instructions.append("0000000000000000")
+                    self.binary_instructions.append("0000000000000000")
+                    self.binary_instructions.append("0000000000000000")
                     self.labels['MAIN-PROGRAM-ENTRY-POINT'] = len(self.binary_instructions)
                 continue
             if current_section == "constants":
-                continue
+                if line and ":" in line:
+                    ops = line.split(":")
+                    ops[0] = self.data_pointer
+                    if ops[1].split()[0] == ".ascii":
+                        data = ops[1].split()[1:]
+                        data = " ".join(data)
+                        data = data.strip('"').strip("'")
+                        data = data + "\0" 
+                        for i in range(len(data)):
+                            if i % 2 == 0:
+                                self.binary_instructions.append(*self.assemble_code(f"LDL R0, {ord(data[i])}"))
+                                self.binary_instructions.append(*self.assemble_code(f"OUTL {ord(data[i])}, D0"))
+                            else:
+                                self.binary_instructions.append(*self.assemble_code(f"LDH R1, {ord(data[i])}"))
+                                self.binary_instructions.append(*self.assemble_code(f"OUTL {ord(data[i])}, D0"))
+                                self.binary_instructions.append(*self.assemble_code(f"ADD R0, R0, R1"))
+                                self.binary_instructions.append(*self.assemble_code(f"LDL R1, {self.data_pointer}"))
+                                self.binary_instructions.append(*self.assemble_code(f"STR R0, [R1]"))
+                                self.data_pointer += 1
+
+                        self.data_pointer += 1
             if current_section == "variables":
                 continue
             if current_section == "subroutines":
@@ -200,9 +225,9 @@ class Assembler:
                     self.binary_instructions= [*self.binary_instructions, *self.assemble_code(line)]
 
         jmp = self.assemble_code("JMP MAIN-PROGRAM-ENTRY-POINT")
-        i = 0
+        i = self.labels['MAIN-PROGRAM-ENTRY-POINT'] - 4
         for l in jmp:
-            self.binary_instructions[i] = l
             i += 1
+            self.binary_instructions[i] = l
         
         return self.binary_instructions
