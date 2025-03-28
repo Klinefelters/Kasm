@@ -2,7 +2,7 @@
   "patterns": [
     {
       "name": "keyword.control.kasm",
-      "match": "\\b(NOOP|LOAD|LOADI|STORE|JMPIF|RIO|WIO|WIOI|HALT|ADD|SUB|MUL|DIV|REM|SLL|SLR|SAR|AND|NAND|ORR|NOR|XOR|XNOR|NMOV|MOV)\\b"
+      "match": "\\b(NOP|LDR|LDH|LDL|STR|JMP|IN|WIO|OUTL|OUT|END|OUTH|HALT|ADD|SUB|MUL|DIV|REM|SLL|SLR|SAR|AND|NAND|OR|NOR|XOR|XNOR|NMOV|MOV|CALL|BGT|BEQ|BLT|BSGT|BSEQ|BSLT)\\b"
     },
     {
       "name": "constant.numeric.kasm",
@@ -15,6 +15,30 @@
     {
       "name": "comment.line.double-slash.kasm",
       "match": "//.*$"
+    },
+    {
+      "name": "variable.register.kasm",
+      "match": "\\bR[0-9]+\\b"
+    },
+    {
+      "name": "variable.device.kasm",
+      "match": "\\bD[0-9]+\\b"
+    },
+    {
+      "name": "entity.name.section.kasm",
+      "match": "\\bsection\\.[a-zA-Z0-9_]+\\b"
+    },
+    {
+      "name": "entity.name.label.definition.kasm",
+      "match": "^@[a-zA-Z0-9_]+"
+    },
+    {
+      "name": "entity.name.label.reference.kasm",
+      "match": "\\b[a-zA-Z0-9_]+\\b"
+    },
+    {
+      "name": "entity.name.subroutine.kasm",
+      "match": "^[a-zA-Z0-9_]+:"
     }
   ],
   "scopeName": "source.kasm",

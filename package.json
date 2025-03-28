@@ -2,13 +2,13 @@
   "name": "kasm-extension",
   "displayName": "KASM Extension",
   "description": "Tooltips for KASM assembly language.",
+  "repository": "github.com/klinefelters/kasm",
   "version": "0.1.0",
   "publisher": "your-name",
   "engines": {
     "vscode": "^1.75.0"
   },
   "categories": ["Programming Languages"],
-  "main": "./tooltips/extension.js",
   "contributes": {
     "languages": [
       {
@@ -25,9 +25,5 @@
         "path": "./syntaxes/kasm.tmLanguage.json"
       }
     ]
-  },
-  "files": [
-      "/docs/tooltips/",
-      "docs/tooltips/*.md"
-  ]
+  }
 }

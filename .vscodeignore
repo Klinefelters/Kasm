@@ -1,4 +1,10 @@
+**venv/**
+**node_modules/**
+**examples/**
+**kasm_compiler**/**
 .vscode/**
 .vscode-test/**
 .gitignore
 vsc-extension-quickstart.md
+Kasm.circ
+setup.py

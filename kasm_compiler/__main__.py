@@ -1,6 +1,6 @@
 import sys
 from coloredlogs import install
-from kasm_compiler.assembler.assembler import Assembler
+from kasm_compiler.assembler import Assembler
 
 
 
