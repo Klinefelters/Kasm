@@ -8,7 +8,6 @@ c: .int 0 // int c = 0
 
 
 section.subroutines
-// TODO: Add branch and label support for subroutines
 main:
     LDR R0, [R1]
     ADD R0, R0, R2

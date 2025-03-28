@@ -1,0 +1,18 @@
+section.subroutines
+loop:
+    OUTL 0x65, D0
+    SUB R0, R0, R1
+    MOV R1, R0, R1
+    BGT loop
+    OUTL 0x43, D0
+RTN
+
+section.instructions
+
+LDL R0 0x04
+LDL R1 0x01
+CALL loop
+NOP
+
+NOP
+HALT

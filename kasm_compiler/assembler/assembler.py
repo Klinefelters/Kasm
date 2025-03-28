@@ -31,9 +31,8 @@ class Assembler:
     line_num: int = 0
     data: dict = {}
     vars: dict = {}
-    subroutines: dict = {}
     labels: dict = {}
-    binary_instructions: list = []
+    binary_instructions: list = ['0000000000000000','0000000000000000','0000000000000000','0000000000000000']
 
     def assemble_code(self, instruction):
         """Assemble a single instruction into a 16-bit binary string."""
@@ -57,22 +56,20 @@ class Assembler:
             if sub in self.labels:
                 sub = int(self.labels[sub])
                 if sub < 256:
-                    current_instructions.append(f"01100{sub:08b}111")
+                    current_instructions.append(f"01100{sub:08b}110")
                 elif sub < 65536:
                     subl = sub & 0xFF
                     subh = (sub >> 8) & 0xFF
-                    current_instructions.append(f"01101{subh:08b}110")
-                    current_instructions.append(f"01101{subl:08b}111")
-                    current_instructions.append(f"0010000111110111")
+                    current_instructions.append(f"01101{subh:08b}101")
+                    current_instructions.append(f"01101{subl:08b}110")
+                    current_instructions.append(f"0010000110101110")
                 else:
                     error(f"Subroutine out of range: {sub}")
-            current_instructions.append(f"101{op}0000000111")
+            current_instructions.append(f"101{op}0000000110")
+            current_instructions.append(f"0000000000000000")
 
         elif keyword in MATH_OPS:
-            if keyword == "NMOV" or keyword == "MOV":
-                rb = '000'
-            else:
-                rb = register_to_binary(parts[3])
+            rb = register_to_binary(parts[3])
             op = MATH_OPS[keyword]
             rd = register_to_binary(parts[1])
             ra = register_to_binary(parts[2])
@@ -120,10 +117,35 @@ class Assembler:
 
         elif keyword == "CALL":
             subroutine = parts[1]
-            if subroutine in self.subroutines:
-                sub = self.subroutines[subroutine]
-                for instruction in sub:
-                    current_instructions.append(instruction)
+            debug(f"Subroutine: {subroutine}")
+
+            if subroutine in self.labels.keys():
+                sub = self.labels[subroutine]
+                if sub < 256:
+                    current_instructions.append(f"01100{sub:08b}110")
+                elif sub < 65536:
+                    subl = sub & 0xFF
+                    subh = (sub >> 8) & 0xFF
+                    current_instructions.append(f"01101{subh:08b}110")
+                    current_instructions.append(f"01101{subl:08b}101")
+                    current_instructions.append(f"0010000110110101")
+
+                
+                location = len(self.binary_instructions)
+                if location + 3 < 256:
+                    location += 3
+                    current_instructions.append(f"01100{location:08b}111")
+                elif location + 5 < 65536:
+                    location += 5
+                    locationl = location & 0xFF
+                    loactionh = (location >> 8) & 0xFF
+                    current_instructions.append(f"01101{loactionh:08b}110")
+                    current_instructions.append(f"01101{locationl:08b}111")
+                    current_instructions.append(f"0010000111110111")
+                
+                current_instructions.append(f"1011110000000110")
+                current_instructions.append(f"0000000000000000")
+            
         
         elif keyword == "HALT":
             current_instructions.append("1111111111111111")
@@ -150,6 +172,8 @@ class Assembler:
                 continue
             if line.startswith("section."):
                 current_section = line[8:]
+                if current_section == "instructions":
+                    self.labels['MAIN-PROGRAM-ENTRY-POINT'] = len(self.binary_instructions)
                 continue
             if current_section == "constants":
                 continue
@@ -159,17 +183,26 @@ class Assembler:
                 if line and line.endswith(":"):
                     subroutine_name = line.split(":")[0]
                     subroutine = True
+                    self.labels[subroutine_name] = len(self.binary_instructions)
                     continue
-                elif line and subroutine and line.startswith("END"):
+                elif line and subroutine and line.startswith("RTN"):
                     subroutine = False
                     tmp = []
                     for l in subroutine_lines:
                         tmp = [*tmp, *self.assemble_code(l)]
-                    self.subroutines[subroutine_name] = tmp
+                    tmp.append("1011110000000111")
+                    tmp.append("0000000000000000")
+                    self.binary_instructions = [*self.binary_instructions, *tmp]
                 elif line and subroutine:
                     subroutine_lines.append(line)
             if current_section == "instructions":
                 if line:
                     self.binary_instructions= [*self.binary_instructions, *self.assemble_code(line)]
 
+        jmp = self.assemble_code("JMP MAIN-PROGRAM-ENTRY-POINT")
+        i = 0
+        for l in jmp:
+            self.binary_instructions[i] = l
+            i += 1
+        
         return self.binary_instructions
