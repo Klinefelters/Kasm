@@ -1,2 +1,0 @@
-device, stdout, 0
-printf, 'Hello World', stdout
