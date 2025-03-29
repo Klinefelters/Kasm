@@ -48,15 +48,31 @@ class LDR(Op):
     
 @define
 class LDL(Op):
-    name: str  = "LDL"
+    name: str  = "LDRL"
+
+    def assemble(self, args):
+        rd, imm = self.require_args(args, [Register, Literal])
+        return [f"01000{imm}{rd}"]
+    
+@define
+class LDH(Op):
+    name: str  = "LDRH"
+
+    def assemble(self, args):
+        rd, imm = self.require_args(args, [Register, Literal])
+        return [f"01001{imm}{rd}"]
+
+@define
+class LDRL(Op):
+    name: str  = "LDRL"
 
     def assemble(self, args):
         rd, imm = self.require_args(args, [Register, Literal])
         return [f"01100{imm}{rd}"]
     
 @define
-class LDH(Op):
-    name: str  = "LDH"
+class LDRH(Op):
+    name: str  = "LDRH"
 
     def assemble(self, args):
         rd, imm = self.require_args(args, [Register, Literal])
