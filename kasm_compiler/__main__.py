@@ -1,29 +1,30 @@
 import sys
 from coloredlogs import install
 from kasm_compiler import Assembler
-
+import logging
 
 
 def main():
+    dump_binary = False
     if len(sys.argv) < 2 or len(sys.argv) > 4 or sys.argv[1] == "-h" or ".kasm" not in sys.argv[1]: 
         print("Usage: kasm <file.kasm> -l <log_level>")
         sys.exit(1)
 
-    if "-l" in sys.argv:
-        log_level_str = sys.argv[sys.argv.index("-l") + 1]
-        if log_level_str.upper() == "DEBUG":
-            install(level='DEBUG')
-        elif log_level_str.upper() == "INFO":
-            install(level='INFO')
-        elif log_level_str.upper() == "WARNING":
-            install(level='WARNING')
-        elif log_level_str.upper() == "ERROR":
-            install(level='ERROR')
-        elif log_level_str.upper() == "CRITICAL":
-            install(level='CRITICAL')
-
     if "-b" in sys.argv:
         dump_binary = True
+    if "-l" in sys.argv:
+        
+        log_level_str = (sys.argv[sys.argv.index("-l") + 1])[0:].upper()
+        if log_level_str == "DEBUG":
+            install(level='DEBUG')
+        elif log_level_str == "INFO":
+            install(level='INFO')
+        elif log_level_str == "WARNING":
+            install(level='WARNING')
+        elif log_level_str == "ERROR":
+            install(level='ERROR')
+        elif log_level_str == "CRITICAL":
+            install(level='CRITICAL')
     else:
         install(level='INFO')
 

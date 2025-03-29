@@ -1,0 +1,5 @@
+section .vars
+    msg: .ascii "Hello, World!" 
+
+section .code
+    

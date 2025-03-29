@@ -1,4 +1,4 @@
-section.constants
+section .vars
 msg: .ascii "Hello, World!"
 ; num: .int 0x1234
 
@@ -6,15 +6,7 @@ msg: .ascii "Hello, World!"
 ; ; TODO: Add support for variables
 ; c: .int 0 ; int c = 0
 
-
-section.subroutines
-print:
-    LDR R0, [R1]
-    ADD R0, R0, R2
-    STR R0, [R1]
-END
-
-section.instructions
+section .code
 ; ; Math Operations
 ; @label
 ; ADD R0, R1, R2 ; R0 = R1 + R2

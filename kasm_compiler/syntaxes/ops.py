@@ -48,7 +48,7 @@ class LDR(Op):
     
 @define
 class LDL(Op):
-    name: str  = "LDRL"
+    name: str  = "LDL"
 
     def assemble(self, args):
         rd, imm = self.require_args(args, [Register, Literal])
@@ -56,7 +56,7 @@ class LDL(Op):
     
 @define
 class LDH(Op):
-    name: str  = "LDRH"
+    name: str  = "LDH"
 
     def assemble(self, args):
         rd, imm = self.require_args(args, [Register, Literal])
@@ -280,6 +280,7 @@ class PUSH(Op):
 @define
 class POP(Op):
     name: str  = "POP"
+    sp: str  = "111"
 
     def assemble(self, args):
         ra = self.require_args(args, [Register])[0]

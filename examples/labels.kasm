@@ -1,45 +1,47 @@
-OUTL D0, 'H'
-OUTL D0, 'e'
-OUTL D0, 'l'
-OUTL D0, 'l'
-OUTL D0, 'o'
-OUTL D0, ' '
-OUTL D0, 'W'
-OUTL D0, 'o'
-OUTL D0, 'r'
-OUTL D0, 'l'
-OUTL D0, 'd'
-OUTL D0, '!'
-OUTL D0, '\n'
-JMP @print
+section .code
 
-NOP
-NOP
-NOP
-NOP
-NOP
-NOP
-NOP
-NOP
-NOP
-NOP
-NOP
-NOP
+    OUTL D0, 'H'
+    OUTL D0, 'e'
+    OUTL D0, 'l'
+    OUTL D0, 'l'
+    OUTL D0, 'o'
+    OUTL D0, ' '
+    OUTL D0, 'W'
+    OUTL D0, 'o'
+    OUTL D0, 'r'
+    OUTL D0, 'l'
+    OUTL D0, 'd'
+    OUTL D0, '!'
+    OUTL D0, '\n'
+    JMP @print
 
-@print
-OUTL D0, 'G'
-OUTL D0, 'o'
-OUTL D0, 'o'
-OUTL D0, 'd'
-OUTL D0, 'b'
-OUTL D0, 'y'
-OUTL D0, 'e'
-OUTL D0, ' '
-OUTL D0, 'W'
-OUTL D0, 'o'
-OUTL D0, 'r'
-OUTL D0, 'l'
-OUTL D0, 'd'
-OUTL D0, '!'
-OUTL D0, '\n'
-HALT
+    NOP
+    NOP
+    NOP
+    NOP
+    NOP
+    NOP
+    NOP
+    NOP
+    NOP
+    NOP
+    NOP
+    NOP
+
+    @print
+    OUTL D0, 'G'
+    OUTL D0, 'o'
+    OUTL D0, 'o'
+    OUTL D0, 'd'
+    OUTL D0, 'b'
+    OUTL D0, 'y'
+    OUTL D0, 'e'
+    OUTL D0, ' '
+    OUTL D0, 'W'
+    OUTL D0, 'o'
+    OUTL D0, 'r'
+    OUTL D0, 'l'
+    OUTL D0, 'd'
+    OUTL D0, '!'
+    OUTL D0, '\n'
+    HALT
