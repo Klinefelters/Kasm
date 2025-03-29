@@ -181,7 +181,7 @@ class SAR(RType):
     func4: str  = "0111"
 
 @define
-class INC(RType):
+class INC(Op):
     name: str  = "INC"
     func4: str  = "1000"
 
@@ -190,7 +190,7 @@ class INC(RType):
         return [f"001{self.func4}{ra}{ra}{ra}"]
 
 @define
-class DEC(RType):
+class DEC(Op):
     name: str  = "DEC"
     func4: str  = "1001"
 
@@ -199,7 +199,7 @@ class DEC(RType):
         return [f"001{self.func4}{ra}{ra}{ra}"]
 
 @define
-class RST(RType):
+class RST(Op):
     name: str  = "RST"
     func4: str  = "1010"
 

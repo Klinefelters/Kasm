@@ -1,7 +1,7 @@
 from attr import define
-from logging import error
+from logging import error, warning
 
-from kasm_compiler.syntaxes.constants import RESERVED_REGISTERS
+from kasm_compiler.syntaxes.constants import RESERVED_REGISTERS, REGISTER_ALIASES
 
 @define
 class Arg:
@@ -13,25 +13,28 @@ class Arg:
     bit_size: int = 3 
     optional: list = []
 
-    def __str__(self):
+    def __str__(self) -> str:
         """Return a string representation of the argument in binary format."""
         return f"{self.value:0{self.bit_size}b}" 
     
-    def _check_value(self):
+    def _pre_initialize(self, value: str) -> str:
+        return value
+    
+    def _check_value(self) -> None:
         if self.value < 2**(self.bit_size) and self.value >= 0:
             return
         else:
             error(f"VALUE ERROR: The value '{self.value}' on line {self.line} exceeds the maximum value of {2**(self.bit_size)-1} for a {self.bit_size}-bit argument.")
-            exit(1)
-        
+            exit(1)   
 
-    def initialize(self, value: str, line=0):
+    def initialize(self, value: str, line=0) -> None:
         """Initialize the argument with a specific value.
 
         Args:
             value (int): The integer value to initialize the argument with.
         """
         self.line = line
+        value = self._pre_initialize(value)
         if self.prefix is None:
             raise NotImplementedError("Prefix must be defined for this argument type.")
         try:
@@ -88,10 +91,13 @@ class Register(Arg):
     prefix: str = "R"
     optional: list = ["[", "]"]
 
+    def _pre_initialize(self, value):
+        if value in REGISTER_ALIASES.keys(): 
+            return REGISTER_ALIASES[value]
+        return super()._pre_initialize(value)
     def _check_value(self):
         if self.value in RESERVED_REGISTERS:
-            error(f"VALUE ERROR: Register R{self.value} on line {self.line} is a reserved register ({RESERVED_REGISTERS[self.value]['Abbr']}: {RESERVED_REGISTERS[self.value]['Full']}).")
-            exit(1)
+            warning(f"Register R{self.value} on line {self.line} is a reserved register ({RESERVED_REGISTERS[self.value]['Abbr']}: {RESERVED_REGISTERS[self.value]['Full']}).")
         super()._check_value()
 
 @define
