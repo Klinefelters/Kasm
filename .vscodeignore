@@ -6,5 +6,5 @@
 .vscode-test/**
 .gitignore
 vsc-extension-quickstart.md
-Kasm.circ
+Kasm.circ**
 setup.py

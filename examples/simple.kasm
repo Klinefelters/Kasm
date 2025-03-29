@@ -1,0 +1,40 @@
+ADD R0, R1, R2; R0 = R1 + R2
+SUB R0, R1, R2; R0 = R1 - R2
+MUL R0, R1, R2; R0 = R1 * R2
+DIV R0, R1, R2; R0 = R1 / R2
+REM R0, R1, R2; R0 = R1 % R2
+SLL R0, R1, R2; R0 = R1 << R2
+SLR R0, R1, R2; R0 = R1 >> R2
+SAR R0, R1, R2; R0 = R1 >> R2 (signed)
+AND R0, R1, R2; R0 = R1 & R2
+NAND R0, R1, R2; R0 = ~(R1 & R2)
+OR R0, R1, R2; R0 = R1 | R2
+NOR R0, R1, R2; R0 = ~(R1 | R2)
+XOR R0, R1, R2; R0 = R1 ^ R2
+XNOR R0, R1, R2; R0 = ~(R1 ^ R2)
+NMOV R0, R2, R1; R0 = ~R1
+MOV R0, R2, R1; R0 = R1
+
+; CALL main ; Call the subroutine main
+
+; Load and Store Operations
+LDR R5, [R1]; Load from RAM address R1 into register R0
+LDL R0, 0xff; Load the value 0x00ff into register R0
+LDH R0, 0xff; Load the value 0xff00 into register R0
+STR R0 [R1]; Store the value in register R0 to RAM address R1
+
+; Branch Operations
+BGT [R0], R0, R0; Branch if greater than
+BEQ [R0], R0, R0; Branch if equal
+BLT [R0], R0, R0; Branch if less than
+BSGT [R0], R0, R0; Branch if signed greater than
+BSEQ [R0], R0, R0; Branch if signed equal
+BSLT [R0], R0, R0; Branch if signed less than
+JMP [R0], R0, R0; Jump the program counter to address specified in R0
+; FETCH [R0] ; Fetch an instruction to be executed on the next clock tick from RAM address R0
+
+; IO Operations
+IN R0, D2; Read from device D0 into register R0 ISSUE
+OUT R0, D3; Write from register R0 to device D0 ISSUE
+OUTL D0, 'H'; Write the value 0x00ff device D0
+OUTH D0, 0xff; Write the value 0xff00 device D0

@@ -13,8 +13,8 @@
       "match": "\\b[A-Za-z_][A-Za-z0-9_]*\\b"
     },
     {
-      "name": "comment.line.double-slash.kasm",
-      "match": "//.*$"
+      "name": "comment.line.semi-colon.kasm",
+      "match": ";.*$"
     },
     {
       "name": "variable.register.kasm",
