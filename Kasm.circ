@@ -597,18 +597,18 @@
       <a name="label" val="JUMP"/>
       <a name="labelfont" val="SansSerif bold 9"/>
     </comp>
-    <comp lib="0" loc="(650,780)" name="Tunnel">
+    <comp lib="0" loc="(650,790)" name="Tunnel">
       <a name="facing" val="north"/>
       <a name="label" val="clk"/>
       <a name="labelfont" val="SansSerif bold 9"/>
     </comp>
-    <comp lib="0" loc="(690,1140)" name="Tunnel">
+    <comp lib="0" loc="(690,1130)" name="Tunnel">
       <a name="facing" val="east"/>
       <a name="label" val="Data"/>
       <a name="labelfont" val="SansSerif bold 9"/>
       <a name="width" val="16"/>
     </comp>
-    <comp lib="0" loc="(700,1140)" name="Splitter">
+    <comp lib="0" loc="(700,1130)" name="Splitter">
       <a name="appear" val="center"/>
       <a name="bit1" val="0"/>
       <a name="bit10" val="none"/>
@@ -628,7 +628,7 @@
       <a name="fanout" val="1"/>
       <a name="incoming" val="16"/>
     </comp>
-    <comp lib="0" loc="(730,1150)" name="Tunnel">
+    <comp lib="0" loc="(730,1140)" name="Tunnel">
       <a name="facing" val="east"/>
       <a name="label" val="clk"/>
       <a name="labelfont" val="SansSerif bold 9"/>
@@ -960,8 +960,8 @@
       <a name="addrWidth" val="16"/>
       <a name="appearance" val="classic"/>
       <a name="contents">addr/data: 16 16
-6240 d240 6b29 d328 2001 6001 8008 6360
-d360 6b61 d360 2001 6009 8008 6378 d378
+d240 d328 d360 d360 d378 d100 d2b8 d378
+d390 d360 d320 0 ffff 8008 6378 d378
 6961 d160 2001 6011 8008 6100 d100 6ab9
 d2b8 2001 6019 8008 6378 d378 6b91 d390
 2001 6021 8008 6360 d360 6b21 d320 2001
@@ -979,7 +979,7 @@ c002 c803 d7f8 dff8 0 ffff 65450*0 d328
       <a name="label" val="RESET"/>
       <a name="labelloc" val="south"/>
     </comp>
-    <comp lib="5" loc="(730,1150)" name="TTY"/>
+    <comp lib="5" loc="(730,1140)" name="TTY"/>
     <comp lib="5" loc="(770,1220)" name="Keyboard"/>
     <comp loc="(1210,520)" name="RegisterBank">
       <a name="label" val="Register_Bank"/>
@@ -1129,12 +1129,18 @@ c002 c803 d7f8 dff8 0 ffff 65450*0 d328
     <wire from="(600,760)" to="(610,760)"/>
     <wire from="(630,740)" to="(640,740)"/>
     <wire from="(630,760)" to="(640,760)"/>
-    <wire from="(650,770)" to="(650,780)"/>
+    <wire from="(650,770)" to="(650,790)"/>
+    <wire from="(660,770)" to="(660,780)"/>
+    <wire from="(660,780)" to="(730,780)"/>
     <wire from="(670,750)" to="(750,750)"/>
-    <wire from="(690,1140)" to="(700,1140)"/>
-    <wire from="(720,1140)" to="(730,1140)"/>
-    <wire from="(740,1160)" to="(740,1170)"/>
+    <wire from="(690,1130)" to="(700,1130)"/>
+    <wire from="(720,1130)" to="(730,1130)"/>
+    <wire from="(730,1000)" to="(970,1000)"/>
+    <wire from="(730,780)" to="(730,1000)"/>
+    <wire from="(740,1150)" to="(740,1170)"/>
     <wire from="(740,1170)" to="(1110,1170)"/>
+    <wire from="(750,1150)" to="(750,1160)"/>
+    <wire from="(750,1160)" to="(970,1160)"/>
     <wire from="(750,1220)" to="(770,1220)"/>
     <wire from="(780,1230)" to="(780,1280)"/>
     <wire from="(780,1280)" to="(1110,1280)"/>
@@ -1172,6 +1178,8 @@ c002 c803 d7f8 dff8 0 ffff 65450*0 d328
     <wire from="(960,430)" to="(990,430)"/>
     <wire from="(960,500)" to="(960,540)"/>
     <wire from="(960,540)" to="(990,540)"/>
+    <wire from="(970,1000)" to="(1060,1000)"/>
+    <wire from="(970,1000)" to="(970,1160)"/>
     <wire from="(990,670)" to="(1000,670)"/>
     <wire from="(990,680)" to="(1040,680)"/>
     <wire from="(990,690)" to="(1000,690)"/>
