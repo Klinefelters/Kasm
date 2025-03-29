@@ -21,6 +21,9 @@ def main():
             install(level='ERROR')
         elif log_level_str.upper() == "CRITICAL":
             install(level='CRITICAL')
+
+    if "-b" in sys.argv:
+        dump_binary = True
     else:
         install(level='INFO')
 
@@ -29,9 +32,10 @@ def main():
         assembly_code = f.readlines()
     binary_instructions = Assembler().compile_code(assembly_code)
 
-    with open(file_path.replace(".kasm", ".bin"), "w") as f:
-        for instruction in binary_instructions:
-            f.write(instruction+ "\n")
+    if dump_binary:
+        with open(file_path.replace(".kasm", ".bin"), "w") as f:
+            for instruction in binary_instructions:
+                f.write(instruction+ "\n")
 
     with open(file_path.replace(".kasm", ".hex"), "w") as f:
         for instruction in binary_instructions:

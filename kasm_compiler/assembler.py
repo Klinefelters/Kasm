@@ -22,14 +22,16 @@ class Assembler:
             if line == "":
                 continue
             
-            tokens = line.strip().split()
-            keyword = tokens[0]
-            args = [token.strip(",") for token in tokens[1:]]  # Remove commas and whitespace from arguments
+            keyword, args = line.strip().split(" ", 1)
+            args = args.split(",") if "," in args else [args]
+            args = [arg.strip() for arg in args]  
             debug(f"Processing line {self.line_num}: {keyword} with arguments {args}")  # Debug statement to show the current line being processed
             
             if keyword in OPS.keys():
                 op = OPS[keyword]
                 op.line = self.line_num
-                debug(op.assemble(args)) 
-        
+                self.binary_instructions = [*self.binary_instructions, *op.assemble(args)]
+            debug(f"Binary Instructions: {self.binary_instructions[-1]}")
+        self.binary_instructions.append('0000000000000000')
+        self.binary_instructions.append('1111111111111111')
         return self.binary_instructions

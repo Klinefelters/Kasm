@@ -1,0 +1,29 @@
+LDL R0, 'o'
+PUSH R0
+
+LDL R0, 'l'
+PUSH R0
+
+LDL R0, 'l'
+PUSH R0
+
+LDL R0, 'e'
+PUSH R0
+
+LDL R0, 'H'
+PUSH R0
+
+POP R0
+OUT D0, R0
+
+POP R0
+OUT D0, R0
+
+POP R0
+OUT D0, R0
+
+POP R0
+OUT D0, R0
+
+POP R0
+OUT D0, R0

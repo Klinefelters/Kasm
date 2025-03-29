@@ -35,7 +35,10 @@ class Arg:
         if self.prefix is None:
             raise NotImplementedError("Prefix must be defined for this argument type.")
         try:
-            val = value.split(self.prefix)[1].strip(self.suffix)
+            if self.prefix != "":
+                val = value.split(self.prefix)[1].strip(self.suffix)
+            else:
+                val = value.strip(self.suffix)
             for v in self.optional:
                 val = val.strip(v)
         except IndexError:
@@ -48,8 +51,10 @@ class Arg:
         elif self.cast_type == "hex":
             self.value = int(val, 16)
         elif self.cast_type == "chr":
-            self.value = int(ord(val))
-            return self
+            if val == '\\n':
+                self.value = int(10)
+            else:
+                self.value = int(ord(val))
         else:
             raise NotImplementedError("Prefix must be defined for this argument type.")
         self._check_value()
@@ -74,8 +79,9 @@ class Literal(Arg):
             self.cast_type = "chr"
             return super().initialize(value)
         else:
-            error(f"VALUE ERROR: '{value}' on line {self.line} does not match any known literal format (hex, binary, or ascii).")
-            exit(1)
+            self.prefix = ""
+            self.cast_type = "int"
+            return super().initialize(value)
 
 @define
 class Register(Arg):

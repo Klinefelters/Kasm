@@ -35,6 +35,11 @@ OPS
 LDR Rd Ra
 Load value stored in address [Ra] to Rd
 
+### LDAL [010] 1000 Rd [Ra] 000
+### LDAH [010] 1100 Rd [Ra] 000
+LDR Rd Ra
+Load value stored in address [Ra] to Rd
+
 ### LOADI [011] 0 X Imm Rb
 LDL/LDH Rd Imm
 - 0 load imm into Rb as the low byte with high byte set to 0's

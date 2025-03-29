@@ -28,13 +28,13 @@ class Op():
 class NOP(Op):
     name: str  = "NOP"
     def assemble(self, args):
-        return "0000000000000000"
+        return ["0000000000000000"]
 
 @define
 class HALT(Op):
     name: str  = "HALT"
     def assemble(self, args):
-        return "1111111111111111" 
+        return ["1111111111111111"] 
     
 
 """LOAD/STORE OPERATIONS"""
@@ -44,7 +44,7 @@ class LDR(Op):
 
     def assemble(self, args):
         rd, ra = self.require_args(args, [Register, Register])
-        return f"0100000{rd}{ra}000"
+        return [f"0100000000{ra}{rd}"]
     
 @define
 class LDL(Op):
@@ -52,7 +52,7 @@ class LDL(Op):
 
     def assemble(self, args):
         rd, imm = self.require_args(args, [Register, Literal])
-        return f"01100{imm}{rd}"
+        return [f"01100{imm}{rd}"]
     
 @define
 class LDH(Op):
@@ -60,15 +60,15 @@ class LDH(Op):
 
     def assemble(self, args):
         rd, imm = self.require_args(args, [Register, Literal])
-        return f"01101{imm}{rd}"
+        return [f"01101{imm}{rd}"]
     
 @define
 class STR(Op):
     name: str  = "STR"
 
     def assemble(self, args):
-        ra, rb = self.require_args(args, [Register, Register])
-        return f"1000000000{ra}{rb}"
+        rb, ra = self.require_args(args, [Register, Register])
+        return [f"1000000000{ra}{rb}"]
     
 """BRANCH OPERATIONS"""
 @define
@@ -77,8 +77,11 @@ class JMP(Op):
     sel: str  = "111"
 
     def assemble(self, args):
+        if self.name == "JMP":
+            rd = self.require_args(args, [Register])[0]
+            return [f"1010{self.sel}{rd}000000"]
         rd, ra, rb = self.require_args(args, [Register, Register, Register])
-        return f"1010{self.sel}{rd}{ra}{rb}"
+        return [f"1010{self.sel}{rd}{ra}{rb}"]
     
 @define
 class BSGT(JMP):
@@ -119,7 +122,7 @@ class RType(Op):
 
     def assemble(self, args):
         rd, ra, rb = self.require_args(args, [Register, Register, Register])
-        return f"001{self.func4}{rd}{ra}{rb}"
+        return [f"001{self.func4}{rd}{ra}{rb}"]
     
 @define
 class ADD(RType):
@@ -162,33 +165,45 @@ class SAR(RType):
     func4: str  = "0111"
 
 @define
-class AND(RType):
-    name: str  = "AND"
+class INC(RType):
+    name: str  = "INC"
     func4: str  = "1000"
 
+    def assemble(self, args):
+        ra = self.require_args(args, [Register])[0]
+        return [f"001{self.func4}{ra}{ra}{ra}"]
+
 @define
-class NAND(RType):
-    name: str  = "NAND"
+class DEC(RType):
+    name: str  = "DEC"
     func4: str  = "1001"
+
+    def assemble(self, args):
+        ra = self.require_args(args, [Register])[0]
+        return [f"001{self.func4}{ra}{ra}{ra}"]
+
+@define
+class RST(RType):
+    name: str  = "RST"
+    func4: str  = "1010"
+
+    def assemble(self, args):
+        ra = self.require_args(args, [Register])[0]
+        return [f"001{self.func4}{ra}{ra}{ra}"]
+
+@define
+class AND(RType):
+    name: str  = "AND"
+    func4: str  = "1011"
 
 @define
 class OR(RType):
     name: str  = "OR"
-    func4: str  = "1010"
-
-@define
-class NOR(RType):
-    name: str  = "NOR"
-    func4: str  = "1011"
+    func4: str  = "1100"
 
 @define
 class XOR(RType):
     name: str  = "XOR"
-    func4: str  = "1100"
-
-@define
-class XNOR(RType):
-    name: str  = "XNOR"
     func4: str  = "1101"
 
 @define
@@ -209,15 +224,15 @@ class In(Op):
 
     def assemble(self, args):
         rd, da = self.require_args(args, [Register, Device])
-        return f"1100000{rd}{da}000"
+        return [f"1100000{rd}{da}000"]
     
 @define
 class OUT(Op):
     name: str  = "OUT"
 
     def assemble(self, args):
-        ra, da = self.require_args(args, [Register, Device])
-        return f"1100100000{ra}{da}"
+        da, ra = self.require_args(args, [Device, Register])
+        return[f"1100100000{ra}{da}"]
     
 @define
 class OUTL(Op):
@@ -225,7 +240,7 @@ class OUTL(Op):
 
     def assemble(self, args):
         da, imm = self.require_args(args, [Device, Literal])
-        return f"11010{imm}{da}"
+        return [f"11010{imm}{da}"]
     
 @define
 class OUTH(Op):
@@ -233,4 +248,24 @@ class OUTH(Op):
 
     def assemble(self, args):
         da, imm = self.require_args(args, [Device, Literal])
-        return f"11011{imm}{da}"
+        return [f"11011{imm}{da}"]
+    
+
+"""STACK OPERATIONS"""
+@define
+class PUSH(Op):
+    name: str  = "PUSH"
+    sp: str  = "111"
+
+    def assemble(self, args):
+        ra = self.require_args(args, [Register])[0]
+        return [f"1000000000{self.sp}{ra}",f"0011000111111111"]
+    
+@define
+class POP(Op):
+    name: str  = "POP"
+
+    def assemble(self, args):
+        ra = self.require_args(args, [Register])[0]
+        return [f"0011001{self.sp}{self.sp}{self.sp}",f"0100000000{self.sp}{ra}"]
+
