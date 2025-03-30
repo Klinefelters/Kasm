@@ -1,76 +1,107 @@
-- 16 bit instructions
-- R = one of the 8 registers
-- D = one of the 8 possible device locations. 
-- - 8 input devices and 8 output devices.
-- - Both input device X and output device X share a D number even though their seperate devices 
-- Imm = 8 bit immediate value
-- [] indicates that the value inside, or register's value, is being used as an address
+# Kasm Language
 
-### NOOP [000] 0000 000 000 000
+Kasm is a custom assembly-like language designed for low-level programming on a Kasm CPU designed in Logisim Evolution. This repository contains the Kasm compiler, examples, and syntax highlighting support for Visual Studio Code.
 
-### MATH [001] XXXX Rd Ra Rb
+---
 
-Perform Ra OP Rb store in Rd
-OPS
+## Features
 
-- ADD   [0000];
-- SUB   [0001];
-- MUL   [0010];
-- DIV   [0011]; 
-- REM   [0100]; 
-- SLL   [0101];
-- SLR   [0110];
-- SAR   [0111];
-- AND   [1000];
-- NAND  [1001];
-- ORR   [1010];
-- NOR   [1011];
-- XOR   [1100];
-- XNOR  [1101];
-- NMOV  [1110];
-- MOV   [1111];
+- **Sections**: Organize your code into `.vars` (variables) and `.code` (instructions).
+- **Instructions**: Includes load/store, branching, math, bitwise, IO, and stack operations.
+- **Labels**: Define subroutines and jump points using `@label:` syntax.
+- **Syntax Highlighting**: Custom syntax highlighting for Visual Studio Code.
+
+---
+
+## Example: `all.kasm`
+
+The `all.kasm` file demonstrates the full range of Kasm features, including variable declarations, instructions, and labels.
+
+### Code Example
+
+```asm
+section .vars ; A section for variables
+    num: .int 0 ; A variable to store an integer
+    msg: .ascii "Hello, World!\n" ; A string variable
+
+section .code ; A section for code
+
+    ; LOAD/STORE instructions
+    STR R0, [R1] ; Store the value in R0 into memory address [R1]
+    LDR R0, [R1] ; Load a value from memory address [R1] into R0
+    LDRL R0, 0xFF ; Load a literal value (0x00FF) R0
+    LDRH R0, 0xFF ; Load a literal value (0xFF00) R0
+    ...
+    HALT ; Halt the program
+```
+For the full example, see examples/all.kasm.
+
+### Using the Compiler
+Compile a Kasm File
+To compile a Kasm file, run the following command:
+```bash
+kasm ./path/to/file.kasm
+```
+
+This will generate a .hex file in the same directory as the input file.
+
+### Syntax Highlighting
+This repository includes a Visual Studio Code extension for Kasm syntax highlighting. To enable it:
+
+Open the syntaxes/kasm.tmLanguage.json file.
+Install the extension in Visual Studio Code.
+Open any .kasm file to see the syntax highlighting.
+
+### Instructions Overview
+
+#### Load/Store Instructions
+STR R0, [R1]: Store the value in R0 into memory address [R1].
+LDR R0, [R1]: Load a value from memory address [R1] into R0.
+
+#### Branching Instructions
+JMP [R0]: Jump to the address in R0.
+BGT [R0], R1, R2: Branch to address [R0] if R1 is greater than R2.
+
+#### Math Instructions
+ADD R0, R1, R2: Add R1 and R2, store result in R0.
+SUB R0, R1, R2: Subtract R2 from R1, store result in R0.
+
+#### Bitwise Instructions
+AND R0, R1, R2: Bitwise AND of R1 and R2, store result in R0.
+OR R0, R1, R2: Bitwise OR of R1 and R2, store result in R0.
+
+#### IO Instructions
+IN D0, R0: Input from device D0 into R0.
+OUT D0, R0: Output from R0 to device D0.
+
+#### Stack Instructions
+PUSH R0: Push R0 onto the stack.
+POP R0: Pop the top value from the stack into R0.
+
+#### Labels and Subroutines
+Labels are defined using the @label: syntax and can be used for subroutines or jump points.
+
+Example:
+```asm
+@start:
+    LDR R0, msg
+    JMP @start
+```
+Contributing
+Contributions are welcome! If you have ideas for new features or improvements, feel free to open an issue or submit a pull request.
+
+License
+This project is licensed under the MIT License. See the LICENSE file for details.
 
 
-### LOAD [010] 0000 Rd [Ra] 000
-LDR Rd Ra
-Load value stored in address [Ra] to Rd
+### Key Sections:
+1. **Features**: Highlights the main features of the language.
+2. **Example**: Provides a snippet of the [all.kasm](http://_vscodecontentref_/3) file.
+3. **Using the Compiler**: Explains how to compile and test Kasm files.
+4. **Syntax Highlighting**: Describes how to enable syntax highlighting in Visual Studio Code.
+5. **Instructions Overview**: Summarizes the available instructions.
+6. **Labels and Subroutines**: Explains how to use labels in Kasm.
+7. **Contributing**: Encourages contributions to the project.
+8. **License**: Includes licensing information.
 
-### LDAL [010] 1000 Rd [Ra] 000
-### LDAH [010] 1100 Rd [Ra] 000
-LDR Rd Ra
-Load value stored in address [Ra] to Rd
-
-### LOADI [011] 0 X Imm Rb
-LDL/LDH Rd Imm
-- 0 load imm into Rb as the low byte with high byte set to 0's
-- 1 load imm into Rb as the high byte with the low byte set to 0's
-
-### STORE [100] 0000 000 [Ra] Rb
-STR Ra, Rb
-Store value Rb into address [Ra]
-
-### JMPIF [101] 0000 XXX Ra Rb
-
-Uses status of the last MATH command to branch. These comparisons are made on Ra and Rb of the previous MATH command, not on the resulting Rd.
-
-- GRT   [000]; jump if a was greater than b
-- EQL   [001]; jump if a was equal to b
-- LST   [010]; jump if a was less than b
-- UGT   [011]; jump if unsigned a was greater than unsigned b
-- UEQ   [100]; jump if unsigned a was equal to unsigned b
-- ULT   [101]; jump if unsigned a was less than unsigned b
-- *FETCH  [110]; Fetch instruction
-- JMP   [111]; always jump
-
-### RIO [110] 0000 Rd 000 Da
-Read the value from IO device [Rb] and store it in Rb
-
-### WIO [110] 0100 000 Ra Da
-Write the value stored in Ra to IO device [Rb]
-
-### WIOI [110] 1X Imm Da
-- 0 Write imm to IO device Da as the low byte with high byte set to 0's
-- 1 Write imm to IO device Da as the high byte with low byte set to 0's
-
-### HALT [111]
-Stops the CPU clock
+This [README.md](http://_vscodecontentref_/4) provides a comprehensive overview of your project and organizes the information effectively for users.
