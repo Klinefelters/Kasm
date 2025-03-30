@@ -51,28 +51,28 @@ Open any .kasm file to see the syntax highlighting.
 ## Instructions Overview
 
 ### Load/Store Instructions
-STR R0, [R1]: Store the value in R0 into memory address [R1].
-LDR R0, [R1]: Load a value from memory address [R1] into R0.
+- STR R0, [R1]: Store the value in R0 into memory address [R1].
+- LDR R0, [R1]: Load a value from memory address [R1] into R0.
 
 ### Branching Instructions
-JMP [R0]: Jump to the address in R0.
-BGT [R0], R1, R2: Branch to address [R0] if R1 is greater than R2.
+- JMP [R0]: Jump to the address in R0.
+- BGT [R0], R1, R2: Branch to address [R0] if R1 is greater than R2.
 
 ### Math Instructions
-ADD R0, R1, R2: Add R1 and R2, store result in R0.
-SUB R0, R1, R2: Subtract R2 from R1, store result in R0.
+- ADD R0, R1, R2: Add R1 and R2, store result in R0.
+- SUB R0, R1, R2: Subtract R2 from R1, store result in R0.
 
 ### Bitwise Instructions
-AND R0, R1, R2: Bitwise AND of R1 and R2, store result in R0.
-OR R0, R1, R2: Bitwise OR of R1 and R2, store result in R0.
+- AND R0, R1, R2: Bitwise AND of R1 and R2, store result in R0.
+- OR R0, R1, R2: Bitwise OR of R1 and R2, store result in R0.
 
 ### IO Instructions
-IN D0, R0: Input from device D0 into R0.
-OUT D0, R0: Output from R0 to device D0.
+- IN D0, R0: Input from device D0 into R0.
+- OUT D0, R0: Output from R0 to device D0.
 
 ### Stack Instructions
-PUSH R0: Push R0 onto the stack.
-POP R0: Pop the top value from the stack into R0.
+- PUSH R0: Push R0 onto the stack.
+- POP R0: Pop the top value from the stack into R0.
 
 ### Labels and Subroutines
 Labels are defined using the @label: syntax and can be used for subroutines or jump points.
