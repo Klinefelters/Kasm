@@ -73,12 +73,13 @@ class Assembler:
         self.binary_instructions.append(f"0011010000000000") 
         self.binary_instructions.append(f"0011010100100100")
         self.binary_instructions.append(f"0011010101101101")
-        for i, line in enumerate(assembly_code):
-            if line.strip().startswith("@") and line.strip().endswith(":"):
+        for line in assembly_code:
+            line = line.strip().split(";")[0].strip()
+            if line.startswith("@") and line.endswith(":"):
                 label = Label()
                 label.address = self.vars_pointer
                 label.next_address += 1
-                self.vars[line.strip().strip(":")] = label
+                self.vars[line.strip(":")] = label
                 self.vars_pointer += label.next_address
 
 
@@ -113,7 +114,6 @@ class Assembler:
             elif current_section == ".code":
                 if line.strip().endswith(":") and line.strip().startswith("@"):
                     label = self.vars[line.strip().strip(":")]
-                    print(len(self.binary_instructions))
                     instructions = label.initialize(len(self.binary_instructions), self.line_num)
                     
                     for instruction in instructions:

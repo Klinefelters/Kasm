@@ -239,7 +239,7 @@ class In(Op):
     name: str  = "IN"
 
     def assemble(self, args):
-        rd, da = self.require_args(args, [Register, Device])
+        rd, da = self.require_args(args, [Device, Register])
         return [f"1100000{rd}{da}000"]
     
 @define
