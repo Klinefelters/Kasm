@@ -1,16 +1,14 @@
 section .vars ; A section for variables
     num: .int 0 ; A variable to store an integer
-    string: .ascii "Hello, World!" ; A string variable
+    msg: .ascii "Hello, World!\n" ; A string variable
 
 section .code ; A section for code
-    
-    NOP ; No operation, a placeholder for future instructions
 
     ; LOAD/STORE instructions
     STR R0, [R1] ; Store the value in R0 into memory address [R1]
     LDR R0, [R1] ; Load a value from memory address [R1] into R0
-    LDRL R0, 0xFF ; Load a liteR0l value (0x00FF) R0
-    LDRH R0, 0xFF ; Load a liteR0l value (0xFF00) R0
+    LDRL R0, 0xFF ; Load a literal value (0x00FF) R0
+    LDRH R0, 0xFF ; Load a literal value (0xFF00) R0
     LDL R0, 0xFF ; Load a value from memory address (0x00FF) into R0
     LDH R0, 0xFF ; Load a value from memory address (0xFF00) into R0
 
@@ -53,12 +51,33 @@ section .code ; A section for code
     PUSH R0 ; Push R0 onto the stack
     POP R0 ; Pop the top value from the stack into R0
 
+    ; variables
+    LDR R0, num ; Load the address of value of num into R0
+    LDR R0, msg ; Load the address of string into R0
+
     ; labels
-    @label: ; A label for branching
-        LDR R0, @label ; Load the address of the label into R0
-        LDR R0, R0 ; Load the value at the address in R0 (address of the label) into R0
+    @start: ; A label for the start of the subroutine
+        LDR R0, @start ; Load the address of the start label into R0
+        LDR R0, R0 ; Load the value at address R0 into R0
         JMP R0 ; Jump to the address in R0
 
+    ; putting it all together
+    LDRL R2, 8 ; Load a literal value (8) into R2
+    LDR R0, msg ; Load the address of msg into R0
+    @print: ; A label for the print operation
+        LDR R1, R0 ; Load the value at address R0 into R1
+        OUT D0, R1 ; Output the value in R1 to device D0 (TTY Screen, which only reads upper 8 bits)
+        SLL R1, R1, R2 ; Shift left logical R1 by the number of bits stored in R2 (8)
+        OUT D0, R1 ; Output the shifted value in R1 to device D0
+        INC R0 ; Increment R0 to point to the next character in the string
+        LDR R3, @print ; Load the address of the print label into R3
+        LDR R3, R3 ; Load the value at address R3 into R3
+        BGT R3, R1, M0 ; Branch to R3 (print label) if R1 is greater than M0
+        ; Strings are terminated with a null character (0x00).
+        ; M0 is a register used for macros, such as loading labels. 
+        ; It's reset to 0 after each macro, so here we use it to check if the string is finished.
+
+    NOP ; No operation, a placeholder for future instructions
     HALT ; Halt the program
 
     
