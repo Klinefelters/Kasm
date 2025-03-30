@@ -13,11 +13,7 @@ Kasm is a custom assembly-like language designed for low-level programming on a 
 
 ---
 
-## Example: `all.kasm`
-
-The `all.kasm` file demonstrates the full range of Kasm features, including variable declarations, instructions, and labels.
-
-### Code Example
+## Code Example
 
 ```asm
 section .vars ; A section for variables
@@ -36,7 +32,7 @@ section .code ; A section for code
 ```
 For the full example, see examples/all.kasm.
 
-### Using the Compiler
+## Using the Compiler
 Compile a Kasm File
 To compile a Kasm file, run the following command:
 ```bash
@@ -45,40 +41,40 @@ kasm ./path/to/file.kasm
 
 This will generate a .hex file in the same directory as the input file.
 
-### Syntax Highlighting
+## Syntax Highlighting
 This repository includes a Visual Studio Code extension for Kasm syntax highlighting. To enable it:
 
 Open the syntaxes/kasm.tmLanguage.json file.
 Install the extension in Visual Studio Code.
 Open any .kasm file to see the syntax highlighting.
 
-### Instructions Overview
+## Instructions Overview
 
-#### Load/Store Instructions
+### Load/Store Instructions
 STR R0, [R1]: Store the value in R0 into memory address [R1].
 LDR R0, [R1]: Load a value from memory address [R1] into R0.
 
-#### Branching Instructions
+### Branching Instructions
 JMP [R0]: Jump to the address in R0.
 BGT [R0], R1, R2: Branch to address [R0] if R1 is greater than R2.
 
-#### Math Instructions
+### Math Instructions
 ADD R0, R1, R2: Add R1 and R2, store result in R0.
 SUB R0, R1, R2: Subtract R2 from R1, store result in R0.
 
-#### Bitwise Instructions
+### Bitwise Instructions
 AND R0, R1, R2: Bitwise AND of R1 and R2, store result in R0.
 OR R0, R1, R2: Bitwise OR of R1 and R2, store result in R0.
 
-#### IO Instructions
+### IO Instructions
 IN D0, R0: Input from device D0 into R0.
 OUT D0, R0: Output from R0 to device D0.
 
-#### Stack Instructions
+### Stack Instructions
 PUSH R0: Push R0 onto the stack.
 POP R0: Pop the top value from the stack into R0.
 
-#### Labels and Subroutines
+### Labels and Subroutines
 Labels are defined using the @label: syntax and can be used for subroutines or jump points.
 
 Example:
