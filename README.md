@@ -96,7 +96,7 @@ This project is licensed under the MIT License. See the LICENSE file for details
 
 ### Key Sections:
 1. **Features**: Highlights the main features of the language.
-2. **Example**: Provides a snippet of the [all.kasm](http://_vscodecontentref_/3) file.
+2. **Example**: Provides a snippet of the [all.kasm](https://github.com/Klinefelters/Kasm/blob/main/examples/all.kasm) file.
 3. **Using the Compiler**: Explains how to compile and test Kasm files.
 4. **Syntax Highlighting**: Describes how to enable syntax highlighting in Visual Studio Code.
 5. **Instructions Overview**: Summarizes the available instructions.
@@ -104,4 +104,4 @@ This project is licensed under the MIT License. See the LICENSE file for details
 7. **Contributing**: Encourages contributions to the project.
 8. **License**: Includes licensing information.
 
-This [README.md](http://_vscodecontentref_/4) provides a comprehensive overview of your project and organizes the information effectively for users.
+This [README.md](https://github.com/Klinefelters/Kasm/blob/main/examples/all.kasm) provides a comprehensive overview of your project and organizes the information effectively for users.
