@@ -80,7 +80,8 @@ Labels are defined using the @label: syntax and can be used for subroutines or j
 Example:
 ```asm
 @start:
-    LDR R0, msg
+    LDR R0, @start
+    LDR R0, R0
     JMP @start
 ```
 Contributing
