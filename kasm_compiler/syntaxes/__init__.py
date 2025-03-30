@@ -17,6 +17,6 @@ for op in [
 
 VARS = {}
 for var in [
-    Ascii(),
+    Ascii(), Int()
 ]:
     VARS[var.name] = var

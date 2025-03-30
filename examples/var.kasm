@@ -4,7 +4,7 @@ section .vars
 section .code
     RST R4
     LDRL R2, 8
-    LDRL R3, 40
+    LDRL R3, 41
     LDR R0, msg
 
     NOP

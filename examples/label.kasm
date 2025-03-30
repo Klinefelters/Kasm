@@ -1,0 +1,21 @@
+section .vars
+    msg: .ascii "Hello, World!\n"
+
+section .code
+    LDRL R2, 8
+    @start:
+        LDR R0, msg
+        NOP
+        @print:
+            LDR R1, R0
+            OUT D0, R1
+            SLL R1, R1, R2
+            INC R0
+            OUT D0, R1
+            LDR R3, @print
+            LDR R3, R3
+            BGT R3, R1, M0
+            LDR R3, @start
+            LDR R3, R3
+            JMP R3
+    

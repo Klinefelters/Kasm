@@ -3,6 +3,7 @@ from attr import define
 
 from kasm_compiler.syntaxes import OPS, VARS
 from kasm_compiler.syntaxes.args import Register
+from kasm_compiler.syntaxes.variables import Label
 
 
 
@@ -10,7 +11,6 @@ from kasm_compiler.syntaxes.args import Register
 class Assembler:
     line_num: int = 0
     vars: dict = {}
-    labels: dict = {}
     vars_pointer: int = 0
     binary_instructions: list = []
 
@@ -67,6 +67,21 @@ class Assembler:
         self.vars[keyword.split(":")[0].strip()] = var
         self.vars_pointer += var.next_address
 
+    def handle_vars_start(self, assembly_code):
+        """Handle the start of the code section."""
+        # Reset the registers used to define variables
+        self.binary_instructions.append(f"0011010000000000") 
+        self.binary_instructions.append(f"0011010100100100")
+        self.binary_instructions.append(f"0011010101101101")
+        for i, line in enumerate(assembly_code):
+            if line.strip().startswith("@") and line.strip().endswith(":"):
+                label = Label()
+                label.address = self.vars_pointer
+                label.next_address += 1
+                self.vars[line.strip().strip(":")] = label
+                self.vars_pointer += label.next_address
+
+
     def compile_code(self, assembly_code):
         """Compile a list of assembly instructions into binary."""
 
@@ -88,12 +103,22 @@ class Assembler:
 
             if keyword == "section":
                 current_section = args.strip()
+                if current_section == ".vars":
+                    self.handle_vars_start(assembly_code)
                 continue
 
             if current_section == ".vars":
                 self.handle_vars(keyword, args)
             
             elif current_section == ".code":
+                if line.strip().endswith(":") and line.strip().startswith("@"):
+                    label = self.vars[line.strip().strip(":")]
+                    print(len(self.binary_instructions))
+                    instructions = label.initialize(len(self.binary_instructions), self.line_num)
+                    
+                    for instruction in instructions:
+                        key, args = instruction.strip().split(" ", 1)
+                        self.handle_code(key, args)
                 self.handle_code(keyword, args)
                     
         self.binary_instructions.append('0000000000000000')

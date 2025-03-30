@@ -29,7 +29,7 @@
     </tool>
     <tool name="Probe">
       <a name="appearance" val="classic"/>
-      <a name="facing" val="west"/>
+      <a name="facing" val="south"/>
     </tool>
     <tool name="Tunnel">
       <a name="width" val="16"/>
@@ -279,6 +279,7 @@
       <a name="appearance" val="classic"/>
       <a name="facing" val="north"/>
       <a name="label" val="ManualINST"/>
+      <a name="radix" val="16"/>
       <a name="width" val="16"/>
     </comp>
     <comp lib="0" loc="(1310,490)" name="Tunnel">
@@ -677,6 +678,11 @@
       <a name="labelfont" val="SansSerif bold 9"/>
       <a name="width" val="8"/>
     </comp>
+    <comp lib="0" loc="(560,540)" name="Tunnel">
+      <a name="facing" val="east"/>
+      <a name="label" val="clk"/>
+      <a name="labelfont" val="SansSerif bold 9"/>
+    </comp>
     <comp lib="0" loc="(570,410)" name="Splitter">
       <a name="appear" val="right"/>
       <a name="bit1" val="0"/>
@@ -696,11 +702,6 @@
       <a name="bit9" val="1"/>
       <a name="facing" val="north"/>
       <a name="incoming" val="16"/>
-    </comp>
-    <comp lib="0" loc="(570,540)" name="Tunnel">
-      <a name="facing" val="east"/>
-      <a name="label" val="clk"/>
-      <a name="labelfont" val="SansSerif bold 9"/>
     </comp>
     <comp lib="0" loc="(580,460)" name="Tunnel">
       <a name="label" val="LDA"/>
@@ -1058,63 +1059,16 @@
       <a name="addrWidth" val="16"/>
       <a name="appearance" val="classic"/>
       <a name="contents">addr/data: 16 16
-6a44 632d 2165 6004 8025 6b64 6365 2165
-600c 8025 6b7c 6165 2165 6014 8025 6904
-62bd 2165 601c 8025 6b7c 6395 2165 6024
-8025 6b64 6325 2165 602c 8025 690c 6055
-2165 6034 8025 3524 6042 687b 6000 4001
-c808 2a4a 3000 a8cc c808 4001 c808 2a4a
-3000 a8cc c808 4001 c808 2a4a 3000 a8cc
-c808 4001 c808 2a4a 3000 a8cc c808 4001
-c808 2a4a 3000 a8cc c808 4001 c808 2a4a
-3000 a8cc c808 4001 c808 2a4a 3000 a8cc
-c808 4001 c808 2a4a 3000 a8cc c808 4001
-c808 2a4a 3000 a8cc c808 4001 c808 2a4a
-3000 a8cc c808 4001 c808 2a4a 3000 a8cc
-c808 4001 c808 2a4a 3000 a8cc c808 4001
-c808 2a4a 3000 a8cc c808 4001 c808 2a4a
-3000 a8cc c808 4001 c808 2a4a 3000 a8cc
-c808 4001 c808 2a4a 3000 a8cc c808 4001
-c808 2a4a 3000 a8cc c808 0 ffff d240
-d328 d360 d360 d378 d100 d2b8 d378 d390
-d360 d320 d108 d050 d240 d328 d360 d360
-d378 d100 d2b8 d378 d390 d360 d320 d108
-d050 d240 d328 d360 d360 d378 d100 d2b8
-d378 d390 d360 d320 d108 d050 d240 d328
-d360 d360 d378 d100 d2b8 d378 d390 d360
-d320 d108 d050 d240 d328 d360 d360 d378
-d100 d2b8 d378 d390 d360 d320 d108 d050
-d240 d328 d360 d360 d378 d100 d2b8 d378
-d390 d360 d320 d108 d050 d240 d328 d360
-d360 d378 d100 d2b8 d378 d390 d360 d320
-d108 d050 d240 d328 d360 d360 d378 d100
-d2b8 d378 d390 d360 d320 d108 d050 d240
-d328 d360 d360 d378 d100 d2b8 d378 d390
-d360 d320 d108 d050 d240 d328 d360 d360
-d378 d100 d2b8 d378 d390 d360 d320 d108
-d050 d240 d328 d360 d360 d378 d100 d2b8
-d378 d390 d360 d320 d108 d050 d240 d328
-d360 d360 d378 d100 d2b8 d378 d390 d360
-d320 d108 d050 d240 d328 d360 d360 d378
-d100 d2b8 d378 d390 d360 d320 d108 d050
-d240 d328 d360 d360 d378 d100 d2b8 d378
-d390 d360 d320 d108 d050 d240 d328 d360
-d360 d378 d100 d2b8 d378 d390 d360 d320
-d108 d050 d240 d328 d360 d360 d378 d100
-d2b8 d378 d390 d360 d320 d108 d050 d240
-d328 d360 d360 d378 d100 d2b8 d378 d390
-d360 d320 d108 d050 d240 d328 d360 d360
-d378 d100 d2b8 d378 d390 d360 d320 d108
-d050 d240 d328 d360 d360 d378 d100 d2b8
-d378 d390 d360 d320 d108 d050 d240 d328
-d360 d360 d378 d100 d2b8 d378 d390 d360
-d320 d108 d050 d240 d328 d360 d360 d378
-d100 d2b8 d378 d390 d360 d320 d108 d050
-d240 d328 d360 d360 d378 d100 d2b8 d378
-d390 d360 d320 d108 d050 d240 d328 d360
-d360 d378 d100 d2b8 d378 d390 d360 d320
-d108 d050 0 ffff 65084*0 d328 2291 6ffe
-67c7 21f7 b407 0 ffff
+3400 3524 356d 6a44 632d 2125 6010 8004
+6b64 6365 2125 6018 8004 6b7c 6165 2125
+6020 8004 6904 62bd 2125 6028 8004 6b7c
+6395 2125 6030 8004 6b64 6325 2125 6038
+8004 690c 6055 2125 6040 8004 6042 6005
+6164 802c 356d 3524 6010 0 600d 619c
+802c 356d 3524 4001 c808 2a4a 3000 c808
+600b 401b a6cc 6003 401b aec0 0 ffff
+65464*0 d328 2291 6ffe 67c7 21f7 b407 0
+ffff
 </a>
       <a name="dataWidth" val="16"/>
     </comp>
@@ -1300,6 +1254,7 @@ d108 d050 0 ffff 65084*0 d328 2291 6ffe
     <wire from="(560,470)" to="(560,480)"/>
     <wire from="(560,480)" to="(560,510)"/>
     <wire from="(560,510)" to="(570,510)"/>
+    <wire from="(560,540)" to="(570,540)"/>
     <wire from="(570,460)" to="(580,460)"/>
     <wire from="(580,370)" to="(580,390)"/>
     <wire from="(600,760)" to="(610,760)"/>
