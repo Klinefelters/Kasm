@@ -32,19 +32,24 @@ OPS
 
 
 ### LOAD [010] 0000 Rd [Ra] 000
+LDR Rd Ra
+Load value stored in address [Ra] to Rd
 
+### LDAL [010] 1000 Rd [Ra] 000
+### LDAH [010] 1100 Rd [Ra] 000
+LDR Rd Ra
 Load value stored in address [Ra] to Rd
 
 ### LOADI [011] 0 X Imm Rb
-
+LDL/LDH Rd Imm
 - 0 load imm into Rb as the low byte with high byte set to 0's
 - 1 load imm into Rb as the high byte with the low byte set to 0's
 
 ### STORE [100] 0000 000 [Ra] Rb
-
+STR Ra, Rb
 Store value Rb into address [Ra]
 
-### JMPIF [101] XXX 0 000 000 Rb
+### JMPIF [101] 0000 XXX Ra Rb
 
 Uses status of the last MATH command to branch. These comparisons are made on Ra and Rb of the previous MATH command, not on the resulting Rd.
 
@@ -54,13 +59,13 @@ Uses status of the last MATH command to branch. These comparisons are made on Ra
 - UGT   [011]; jump if unsigned a was greater than unsigned b
 - UEQ   [100]; jump if unsigned a was equal to unsigned b
 - ULT   [101]; jump if unsigned a was less than unsigned b
-- NOOP  [110]; never jump
+- *FETCH  [110]; Fetch instruction
 - JMP   [111]; always jump
 
-### RIO [110] 00 Rd 000 Da
+### RIO [110] 0000 Rd 000 Da
 Read the value from IO device [Rb] and store it in Rb
 
-### WIO [110] 01 000 Ra Da
+### WIO [110] 0100 000 Ra Da
 Write the value stored in Ra to IO device [Rb]
 
 ### WIOI [110] 1X Imm Da

@@ -1,6 +1,1 @@
-"""
-"""
-
-from kasm_compiler.Compiler import Compiler
-
-__all__ = ["Compiler"]
+from kasm_compiler.assembler import Assembler

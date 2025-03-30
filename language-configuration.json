@@ -1,17 +1,13 @@
 {
     "comments": {
-        // symbol used for single line comment. Remove this entry if your language does not support line comments
-        "lineComment": "//",
-        // symbols used for start and end a block comment. Remove this entry if your language does not support block comments
-        "blockComment": [ "/*", "*/" ]
+        "lineComment": ";",
+        "blockComment": ["/*", "*/"]
     },
-    // symbols used as brackets
     "brackets": [
         ["{", "}"],
         ["[", "]"],
         ["(", ")"]
     ],
-    // symbols that are auto closed when typing
     "autoClosingPairs": [
         ["{", "}"],
         ["[", "]"],
@@ -19,12 +15,25 @@
         ["\"", "\""],
         ["'", "'"]
     ],
-    // symbols that can be used to surround a selection
     "surroundingPairs": [
         ["{", "}"],
         ["[", "]"],
         ["(", ")"],
         ["\"", "\""],
         ["'", "'"]
-    ]
+    ],
+    "indentationRules": {
+        // Increase indent for subroutine definitions and sections
+        "increaseIndentPattern": "^(\\s*@\\w+:|.*\\bsection\\b.*)$",
+        // Decrease indent for RTN and when a new section starts
+        "decreaseIndentPattern": "^(\\s*RTN\\b.*|.*\\bsection\\b.*)$"
+    },
+    "folding": {
+        "markers": {
+            // Start folding at subroutine definitions
+            "start": "^\\s*@\\w+:",
+            // End folding at the RTN instruction
+            "end": "^\\s*RTN\\b.*$"
+        }
+    }
 }

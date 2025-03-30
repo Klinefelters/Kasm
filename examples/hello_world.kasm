@@ -1,0 +1,16 @@
+section .code
+
+    OUTH D0, 'H'
+    OUTH D0, 'e'
+    OUTH D0, 'l'
+    OUTH D0, 'l'
+    OUTH D0, 'o'
+    OUTH D0, ' '
+    OUTH D0, 'W'
+    OUTH D0, 'o'
+    OUTH D0, 'r'
+    OUTH D0, 'l'
+    OUTH D0, 'd'
+    OUTH D0, '!'
+    OUTH D0, '\n'
+    JMP R0

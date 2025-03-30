@@ -10,6 +10,7 @@ setup(
     packages=find_packages(),
     install_requires=[
         'attrs',
+        'coloredlogs'
     ],
     entry_points={
         'console_scripts': [
