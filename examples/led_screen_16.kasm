@@ -1,0 +1,37 @@
+section .vars
+section .code
+    RST R0 ; X index
+    RST R1 ; Y index
+    RST R2 ; Color
+
+    @color:
+        @xloop:
+            @yloop:
+                LDRL R4, 3
+                SLL R3, R0, R4
+                LDRL R4, 7
+                SLL R5, R1, R4
+                ADD R3, M1, R3
+                ADD R3, R3, R2
+                OUT D3, R3
+
+                INC R0 ; Increment X index
+                LDR R5, @yloop
+                LDR R5, R5
+                LDRL R4, 0b10000 
+                BLT R5, R0, R4
+            NOP
+            RST R0
+            INC R1 ; Increment X index
+            LDR R5, @xloop
+            LDR R5, R5
+            LDRL R4, 0b10000
+            BLT R5, R1, R4
+        NOP
+        RST R0
+        RST R1
+        INC R2
+        LDR R5, @color
+        LDR R5, R5
+        LDRL R4, 0b1000
+        BLT R5, R2, R4

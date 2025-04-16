@@ -40,10 +40,21 @@ def main():
     
     hex_path = file_path.replace(".kasm", ".hex")
     with open(hex_path, "w") as f:
+        f.write("v3.0 hex words addressed\n")
+        f.write("0000: ")
+        address = 1
         for instruction in binary_instructions:
             nibbles = [instruction[i:i + 4] for i in range(0, len(instruction), 4)]
             hex_instruction = "".join([hex(int(nibble, 2))[2:] for nibble in nibbles])
-            f.write(hex_instruction + "\n")
+            f.write(hex_instruction + " ")
+            if address % 16 == 0 and address != 0x0000:
+                f.write("\n%04x: " % address)
+            address += 1
+        while address < 0xFFFF+1:
+            f.write("0000 ")
+            if address % 16 == 0:
+                f.write("\n%04x: " % address)
+            address += 1
     info("Assembly complete. Output saved to %s", hex_path)
 
 
