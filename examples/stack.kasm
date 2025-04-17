@@ -1,3 +1,4 @@
+section .vars
 section .code
 
     LDRL R0, 'o'

@@ -1,3 +1,5 @@
+section .vars
+
 section .code
 
     OUTH D0, 'H'
